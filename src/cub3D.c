@@ -6,24 +6,32 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 21:25:10 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/03 23:01:20 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
+void	ft_init_map(t_map *map)
+{
+	map->map = NULL;
+	map->map_height = 0;
+	map->map_width = 0;
+	map->textures[0] = NULL;
+	map->textures[1] = NULL;
+	map->textures[2] = NULL;
+	map->textures[3] = NULL;
+}
+
 int	main(int ac, char **av)
 {
-	int	fd;
+	t_map	*map;
 
-	if (ac != 2)
-	{
-		printf("Error\nInvalid arguments\nCorrect usage: ./cub3D map.cub\n");
+	if (!ft_check_file(av[1], ac))
 		return (1);
-	}
-	fd = check_filename(av[1]);
-	if (fd < 0)
+	map = malloc(sizeof(t_map));
+	if (!map)
 		return (1);
-	close(fd);
+	ft_init_map(map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 20:47:20 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/03 22:05:47 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,13 @@
 # include "../src/libft/libft.h"
 # include "../src/mlx_linux/mlx.h"
 # include "parsing.h"
+
+typedef struct s_map
+{
+	char			**map;
+	int				map_height;
+	int				map_width;
+	void			*textures[4];
+}	t_map;
 
 #endif
