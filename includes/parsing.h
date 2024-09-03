@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 19:18:05 by nrontey          ###   ########.fr       */
+/*   Created: 2024/09/03 19:17:00 by nrontey           #+#    #+#             */
+/*   Updated: 2024/09/03 19:17:12 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-int	main(int ac, char **av)
-{
-	if (ac != 2)
-	{
-		printf("Error\nInvalid arguments\nCorrect usage: ./cub3D map.cub\n");
-		return (1);
-	}
-	if (!check_file_name(av[1]))
-	{
-		printf("Error\nInvalid file name\n");
-		return (1);
-	}
-	return (0);
-}
+int	check_file_name(char *filename);
+
+#endif

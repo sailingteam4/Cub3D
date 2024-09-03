@@ -12,8 +12,8 @@ MLX_LIB = $(MLX)/libmlx.a
 MLX_LFLAGS = -L$(MLX) -lmlx -lXext -lX11 -lm
 
 SRC_DIR = src
-SRC = $(addprefix $(SRC_DIR)/, \
-		cub3D.c)
+SRC = $(SRC_DIR)/cub3D.c \
+		$(addprefix $(SRC_DIR)/str/, parsing_utils.c)
 
 OBJ_DIR = obj
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
