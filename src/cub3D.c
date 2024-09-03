@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 20:30:09 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/03 21:25:10 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int	main(int ac, char **av)
 {
+	int	fd;
+
 	if (ac != 2)
 	{
 		printf("Error\nInvalid arguments\nCorrect usage: ./cub3D map.cub\n");
 		return (1);
 	}
-	if (!check_file_name(av[1]))
+	fd = check_filename(av[1]);
+	if (fd < 0)
 		return (1);
+	close(fd);
 	return (0);
 }

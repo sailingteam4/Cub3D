@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 20:16:42 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/03 20:47:20 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include "../src/libft/libft.h"
 # include "../src/mlx_linux/mlx.h"
 # include "parsing.h"
