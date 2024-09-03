@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 20:27:40 by nrontey          ###   ########.fr       */
+/*   Created: 2024/09/03 20:24:03 by nrontey           #+#    #+#             */
+/*   Updated: 2024/09/03 20:24:39 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	main(int ac, char **av)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (ac != 2)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		printf("Error\nInvalid arguments\nCorrect usage: ./cub3D map.cub\n");
-		return (1);
+		s1++;
+		s2++;
 	}
-	if (!check_file_name(av[1]))
-		return (1);
-	return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
