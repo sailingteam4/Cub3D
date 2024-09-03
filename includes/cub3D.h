@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 18:44:59 by nrontey          ###   ########.fr       */
+/*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
+/*   Updated: 2024/09/03 18:47:06 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#ifndef CUB3D_H
+# define CUB3D_H
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (0);
-}
+# include <math.h>
+# include <stdio.h>
+# include "../src/libft/libft.h"
+# include "../src/mlx_linux/mlx.h"
+
+#endif
