@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/06 05:12:04 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/06 06:02:31 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	**get_map(char *filename)
 	close(fd);
 	return (map);
 }
+
+void	ft_get_all_data()
 
 void	ft_map_parsing(char *filename, t_map *map)
 {
