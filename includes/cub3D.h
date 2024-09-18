@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 22:05:47 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/12 01:25:21 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,24 @@
 # include <fcntl.h>
 # include "../src/libft/libft.h"
 # include "../src/mlx_linux/mlx.h"
-# include "parsing.h"
+
+typedef struct s_textures
+{
+	char	*NO_file;
+	char	*SO_file;
+	char	*WE_file;
+	char	*EA_file;
+
+	int		F_R;
+	int		F_G;
+	int		F_B;
+	int		F_ok;
+
+	int		C_R;
+	int		C_G;
+	int		C_B;
+	int		C_ok;
+}	t_textures;
 
 typedef struct s_map
 {
@@ -28,5 +45,15 @@ typedef struct s_map
 	int				map_width;
 	void			*textures[4];
 }	t_map;
+
+typedef struct s_data
+{
+	void				*mlx;
+	void				*mlx_win;
+	struct s_map		*map;
+	struct s_textures	*textures;
+}	t_data;
+
+# include "parsing.h"
 
 #endif

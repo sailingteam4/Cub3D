@@ -6,32 +6,57 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/03 23:35:25 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/18 06:58:42 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	ft_init_map(t_map *map)
+static void	ft_init_data(t_data *data)
 {
-	map->map = NULL;
-	map->map_height = 0;
-	map->map_width = 0;
-	map->textures[0] = NULL;
-	map->textures[1] = NULL;
-	map->textures[2] = NULL;
-	map->textures[3] = NULL;
+	data->mlx = NULL;
+	data->mlx_win = NULL;
+	data->map = NULL;
+	data->textures = NULL;
+}
+
+static void	ft_free_data(t_data *data)
+{
+	if (data->mlx)
+	{
+		if (data->mlx_win)
+			mlx_destroy_window(data->mlx, data->mlx_win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	if (data->textures)
+	{
+		if (data->textures->NO_file)
+			free(data->textures->NO_file);
+		if (data->textures->SO_file)
+			free(data->textures->SO_file);
+		if (data->textures->WE_file)
+			free(data->textures->WE_file);
+		if (data->textures->EA_file)
+			free(data->textures->EA_file);
+		free(data->textures);
+	}
+	free(data);
 }
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
+	t_data	*data;
 
-	if (!ft_check_file(av[1], ac))
+	data = malloc(sizeof(t_data));
+	if (!data)
 		return (1);
-	map = malloc(sizeof(t_map));
-	if (!map)
+	ft_init_data(data);
+	if (!ft_check_file(av[1], ac, data))
+	{
+		ft_free_data(data);
 		return (1);
-	ft_init_map(map);
+	}
+	ft_free_data(data);
 	return (0);
 }
