@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CLANG = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=memory
 
 LIBFT = src/libft
 LIBFT_LIB = $(LIBFT)/libft.a
