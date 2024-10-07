@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/01 16:49:24 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 00:49:40 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ int		ft_init_textures(t_data *data)
 	data->textures->EA_file = NULL;
 	data->textures->F_ok = 0;
 	data->textures->C_ok = 0;
+	data->textures->F_R = -1;
+	data->textures->F_G = -1;
+	data->textures->F_B = -1;
+	data->textures->C_R = -1;
+	data->textures->C_G = -1;
+	data->textures->C_B = -1;
 	return (1);
 }
 
@@ -130,11 +136,82 @@ int		get_line_texture(char *line, t_textures *textures)
 	return (1);
 }
 
+int		ft_isnumeric(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		is_valid_color(char **colors)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (!colors[i] || (i > 0 && !ft_isnumeric(colors[i])))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		get_line_color(char *str, char mode, t_textures *textures)
+{
+	char	**colors;
+
+	colors = ft_split(str, ',');
+	if (!colors)
+		return (0);
+	if (!is_valid_color(colors) || colors[3])
+		return (free_tab(colors));
+	if (mode == 'F')
+	{
+		textures->F_R = ft_atoi(colors[0]);
+		textures->F_G = ft_atoi(colors[1]);
+		textures->F_B = ft_atoi(colors[2]);
+		textures->F_ok = 1;
+		return (free_tab(colors), 1);
+	}
+	else if (mode == 'C')
+	{
+		textures->C_R = ft_atoi(colors[0]);
+		textures->C_G = ft_atoi(colors[1]);
+		textures->C_B = ft_atoi(colors[2]);
+		textures->C_ok = 1;
+		return (free_tab(colors), 1);
+	}
+	return (free_tab(colors), 0);
+}
+
 int		handle_texture_data(char *line, t_textures *textures)
 {
 	if (get_line_texture(line, textures))
 		return (1);
 	return (0);
+}
+
+int		handle_color_data(char *line, t_textures *textures)
+{
+	char	**line_tab;
+
+	line_tab = ft_split(line, ' ');
+	if (!line_tab)
+		return (0);
+	if (!line_tab[0] || !line_tab[1])
+		return (free_tab(line_tab));
+	if ((!ft_strcmp(line_tab[0], "F") || !ft_strcmp(line_tab[0], "C")) \
+		&& get_line_color(line_tab[1], line_tab[0][0], textures))
+		return (free_tab(line_tab), 1);
+	return (free_tab(line_tab), 0);
 }
 
 int		ft_parsing_texture(int fd, t_data *data, int *n_line)
@@ -149,10 +226,10 @@ int		ft_parsing_texture(int fd, t_data *data, int *n_line)
         (*n_line)++;
         if (ft_strlen(line) && ft_strchr("NSEW", line[0]) && \
             !handle_texture_data(line, data->textures))
-        {
-            free(line);
-            return (0);
-        }
+			return (free(line), 1);
+		else if (ft_strlen(line) && ft_strchr("FC", line[0]) && \
+			!handle_color_data(line, data->textures))
+			return (free(line), 1);
         free(line);
         line = get_next_line_trim(fd);
     }
@@ -169,10 +246,9 @@ int		ft_get_content(int fd, t_data *data)
 		return (0);
 	if (!ft_parsing_texture(fd, data, &n_line))
 		return (0);
-	printf("NO: %s\n", data->textures->NO_file);
-	printf("SO: %s\n", data->textures->SO_file);
-	printf("WE: %s\n", data->textures->WE_file);
-	printf("EA: %s\n", data->textures->EA_file);
+	printf("Textures:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", data->textures->NO_file, data->textures->SO_file, data->textures->WE_file, data->textures->EA_file);
+	printf("Floor color: %d, %d, %d\n", data->textures->F_R, data->textures->F_G, data->textures->F_B);
+	printf("Ceiling color: %d, %d, %d\n", data->textures->C_R, data->textures->C_G, data->textures->C_B);
 	return (1);
 }
 
