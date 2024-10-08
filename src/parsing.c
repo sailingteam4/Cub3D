@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 22:20:45 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 23:11:32 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,18 +429,8 @@ int	ft_get_nb_lines(char *filename)
 		
 }
 
-int		ft_get_content(int fd, t_data *data, char *filename)
+void	big_print(t_data *data)
 {
-	int		n_line;
-
-	n_line = 0;
-	data->n_line_file = ft_get_nb_lines(filename);
-	if (!ft_init_textures(data))
-		return (0);
-	if (!ft_parsing_texture(fd, data, &n_line))
-		return (0);
-	if (!ft_parsing_map(fd, data, &n_line))
-		return (0);
 	printf("Textures:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", data->textures->NO_file, data->textures->SO_file, data->textures->WE_file, data->textures->EA_file);
 	printf("Floor color: %d, %d, %d\n", data->textures->F_R, data->textures->F_G, data->textures->F_B);
 	printf("Ceiling color: %d, %d, %d\n", data->textures->C_R, data->textures->C_G, data->textures->C_B);
@@ -454,6 +444,21 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 	}
 	else
 		printf("Error\nNo player position found\n");
+}
+
+int		ft_get_content(int fd, t_data *data, char *filename)
+{
+	int		n_line;
+
+	n_line = 0;
+	data->n_line_file = ft_get_nb_lines(filename);
+	if (!ft_init_textures(data))
+		return (0);
+	if (!ft_parsing_texture(fd, data, &n_line))
+		return (0);
+	if (!ft_parsing_map(fd, data, &n_line))
+		return (0);
+	big_print(data);
 	return (1);
 }
 
