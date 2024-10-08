@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 05:42:56 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 05:53:18 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,51 @@ void	get_player(t_data *data)
 	}
 }
 
+size_t	get_max_line(char **map)
+{
+	size_t	max;
+	int		i;
+
+	i = 0;
+	max = 0;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > max)
+			max = ft_strlen(map[i]);
+		i++;
+	}
+	return (max);
+}
+
+void	ft_copy(char *src, char *dst)
+{
+	while (src && *src)
+		*dst++ = *src++;
+}
+
+void	ft_set_max_space(t_map *map)
+{
+	char	**map_2d;
+	int		max;
+	int		i;
+	char 	*tmp;
+	char	*new;
+
+	i = 0;
+	map_2d = map->map_2d;
+	max = get_max_line(map_2d);
+	while (map_2d[i])
+	{
+		tmp = map_2d[i];
+		new = ft_calloc(max + 1, sizeof(char));
+		ft_memset(new, ' ', max);
+		ft_copy(tmp, new);
+		free(tmp);
+		map_2d[i] = new;
+		i++;
+	}
+}
+
 int		ft_parsing_map(int fd, t_data *data, int *n_line)
 {
 	char	*line;
@@ -353,6 +398,8 @@ int		ft_parsing_map(int fd, t_data *data, int *n_line)
 				return (0);
 			ft_fill_map(line, fd, data->map);
 			get_player(data);
+			ft_set_max_space(data->map);
+			return (1);
 		}
 		(*n_line)++;
 		line = get_next_line_trim(fd);
@@ -399,7 +446,7 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 	printf("Ceiling color: %d, %d, %d\n", data->textures->C_R, data->textures->C_G, data->textures->C_B);
 	printf("Map:\n");
 	for (int i = 0; i < data->map->map_height; i++)
-		printf("%s\n", data->map->map_2d[i]);
+		printf("%s|\n", data->map->map_2d[i]);
 	printf("Player position: %f, %f\n", data->map->player->current_position->x, data->map->player->current_position->y);
 	printf("Player rotation: %f\n", data->map->player->rotation);
 	return (1);
