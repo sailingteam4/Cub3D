@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 23:11:32 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/09 00:16:10 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,6 +446,66 @@ void	big_print(t_data *data)
 		printf("Error\nNo player position found\n");
 }
 
+int	is_valid_chars(char c)
+{
+	return (c == '0' || c == '1' || c == 'E'
+		|| c == 'W' || c == 'N' || c == 'S'
+		|| c == ' ' || c == '\t');
+}
+
+int		ft_check_chars(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_valid_chars(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int		check_map_lines(t_map *map)
+{
+	char	*line;
+	char	*trimmed_line;
+	int		i;
+
+	i = 0;
+	line = map->map_2d[i];
+	while (line)
+	{
+		line = map->map_2d[i++];
+		trimmed_line = ft_strtrim(line, " \t\n");
+		if (!trimmed_line || !ft_strlen(trimmed_line))
+			break ;
+		else if (ft_check_chars(trimmed_line))
+			return (free(trimmed_line), 0);
+		if (ft_strlen(trimmed_line) && \
+			(trimmed_line[0] != '1' || trimmed_line[ft_strlen(trimmed_line) - 1] != '1'))
+			return (free(trimmed_line), 0);
+		free(trimmed_line);
+	}
+	return (1);
+}
+
+int		ft_check_map(t_data *data)
+{
+	if (!data->map->is_player)
+	{
+		printf("Error\nNo player position found\n");
+		return (0);
+	}
+	if (!check_map_lines(data->map))
+	{
+		printf("Error\nInvalid map\n");
+		return (0);
+	}
+	return (1);
+}
+
 int		ft_get_content(int fd, t_data *data, char *filename)
 {
 	int		n_line;
@@ -457,6 +517,8 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 	if (!ft_parsing_texture(fd, data, &n_line))
 		return (0);
 	if (!ft_parsing_map(fd, data, &n_line))
+		return (0);
+	if (!ft_check_map(data))
 		return (0);
 	big_print(data);
 	return (1);
