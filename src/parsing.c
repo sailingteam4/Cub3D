@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 05:53:18 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 22:20:45 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,8 +299,8 @@ t_vector	*ft_set_player_pos(int x, int y, char rot, t_player *player)
 			return (NULL);
 		player->current_position = pos;
 	}
-	player->current_position->x = (y * CUBE_SIZE) + (CUBE_SIZE / 2);
-	player->current_position->y = (x * CUBE_SIZE) + (CUBE_SIZE / 2);
+	player->current_position->x = x;
+	player->current_position->y = y;
 	if (rot == 'N')
 		player->rotation = 'N';
 	else if (rot == 'S')
@@ -447,8 +447,13 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 	printf("Map:\n");
 	for (int i = 0; i < data->map->map_height; i++)
 		printf("%s|\n", data->map->map_2d[i]);
-	printf("Player position: %f, %f\n", data->map->player->current_position->x, data->map->player->current_position->y);
-	printf("Player rotation: %f\n", data->map->player->rotation);
+	if (data->map->is_player)
+	{
+		printf("Player position: %f, %f\n", data->map->player->current_position->x, data->map->player->current_position->y);
+		printf("Player rotation: %f\n", data->map->player->rotation);
+	}
+	else
+		printf("Error\nNo player position found\n");
 	return (1);
 }
 
