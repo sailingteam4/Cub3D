@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/12 01:25:21 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 03:49:27 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,27 @@ typedef struct s_textures
 	int		C_ok;
 }	t_textures;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
+typedef struct s_player
+{
+	t_vector	*current_position;
+	t_vector	*start_position;
+}	t_player;
+
 typedef struct s_map
 {
-	char			**map;
-	int				map_height;
-	int				map_width;
-	void			*textures[4];
+	char				**map;
+	char				**map_2d;
+	int					map_height;
+	int					map_width;
+	void				*textures[4];
+	struct s_player		*player;
+	int					is_player;
 }	t_map;
 
 typedef struct s_data
@@ -52,6 +67,7 @@ typedef struct s_data
 	void				*mlx_win;
 	struct s_map		*map;
 	struct s_textures	*textures;
+	int					n_line_file;
 }	t_data;
 
 # include "parsing.h"

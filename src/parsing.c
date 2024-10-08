@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 00:49:40 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 05:11:54 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,11 @@ int		handle_color_data(char *line, t_textures *textures)
 	return (free_tab(line_tab), 0);
 }
 
+int		is_valid_texture(t_textures *textures)
+{
+	return (textures->NO_file && textures->SO_file && textures->WE_file && textures->EA_file && textures->F_ok && textures->C_ok);
+}
+
 int		ft_parsing_texture(int fd, t_data *data, int *n_line)
 {
     char	*line;
@@ -231,20 +236,109 @@ int		ft_parsing_texture(int fd, t_data *data, int *n_line)
 			!handle_color_data(line, data->textures))
 			return (free(line), 1);
         free(line);
+		if (is_valid_texture(data->textures))
+			break ;
         line = get_next_line_trim(fd);
     }
-	free(line);
-    return (1);
+    return (is_valid_texture(data->textures));
 }
 
-int		ft_get_content(int fd, t_data *data)
+int		ft_init_map(t_data *data, int *n_line)
+{
+	char	**map;
+
+	data->map = ft_calloc(1, sizeof(t_map));
+	if (!data->map)
+		return (0);
+	data->map->player = ft_calloc(1, sizeof(t_player));
+	if (!data->map->player)
+		return (0);
+	data->map->player->current_position = NULL;
+	data->map->player->start_position = NULL;
+	data->map->map_height = data->n_line_file - *n_line;
+	data->map->is_player = 0;
+	map = ft_calloc(data->map->map_height + 1, sizeof(char *));
+	data->map->map_2d = map;
+	return (1);
+}
+
+void	ft_fill_map(char *old_line, int fd, t_map *map)
+{
+	char	*line;
+	int		i;
+	char	*check;
+
+	i = 0;
+	line = old_line;
+	while (line)
+	{
+		check = ft_strtrim(line, " t");
+		if (!check || !ft_strlen(check))
+			break ;
+		map->map_2d[i++] = ft_strdup(line);
+		free(line);
+		free(check);
+		line = get_next_line_trim(fd);
+	}
+	map->map_height = i;
+}
+
+int		ft_parsing_map(int fd, t_data *data, int *n_line)
+{
+	char	*line;
+
+	line = get_next_line_trim(fd);
+	if (!line)
+		return (0);
+	while (line)
+	{
+		if (!ft_strlen(line))
+			free(line);
+		else
+		{
+			if (!ft_init_map(data, n_line))
+				return (0);
+			ft_fill_map(line, fd, data->map);
+		}
+		(*n_line)++;
+		line = get_next_line_trim(fd);
+	}
+	return (1);
+}
+
+int	ft_get_nb_lines(char *filename)
+{
+	int		fd;
+	int		count;
+	char	*line;
+
+	count = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	line = get_next_line(fd);
+	while (line)
+	{
+		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (count);
+		
+}
+
+int		ft_get_content(int fd, t_data *data, char *filename)
 {
 	int		n_line;
 
 	n_line = 0;
+	data->n_line_file = ft_get_nb_lines(filename);
 	if (!ft_init_textures(data))
 		return (0);
 	if (!ft_parsing_texture(fd, data, &n_line))
+		return (0);
+	if (!ft_parsing_map(fd, data, &n_line))
 		return (0);
 	printf("Textures:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", data->textures->NO_file, data->textures->SO_file, data->textures->WE_file, data->textures->EA_file);
 	printf("Floor color: %d, %d, %d\n", data->textures->F_R, data->textures->F_G, data->textures->F_B);
@@ -272,7 +366,7 @@ int		ft_check_file(char *filename, int ac, t_data *data)
 		printf("Error\nCould not open file\n");
 		return (0);
 	}
-	if (!ft_get_content(fd, data))
+	if (!ft_get_content(fd, data, filename))
 	{
 		close(fd);
 		return (0);

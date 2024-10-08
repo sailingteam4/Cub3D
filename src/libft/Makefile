@@ -6,13 +6,13 @@
 #    By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 21:00:06 by nrontey           #+#    #+#              #
-#    Updated: 2024/10/01 16:43:22 by nrontey          ###   ########.fr        #
+#    Updated: 2024/10/08 04:02:22 by nrontey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=memory
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 CLEAR = clear
 

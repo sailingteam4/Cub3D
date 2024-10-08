@@ -6,11 +6,13 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 22:49:10 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/18 06:58:42 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 04:39:35 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+int		free_tab(char **tab);
 
 static void	ft_init_data(t_data *data)
 {
@@ -40,6 +42,20 @@ static void	ft_free_data(t_data *data)
 		if (data->textures->EA_file)
 			free(data->textures->EA_file);
 		free(data->textures);
+	}
+	if (data->map)
+	{
+		if (data->map->player)
+		{
+			if (data->map->player->current_position)
+				free(data->map->player->current_position);
+			if (data->map->player->start_position)
+				free(data->map->player->start_position);
+			free(data->map->player);
+		}
+		if (data->map->map_2d)
+			free_tab(data->map->map_2d);
+		free(data->map);
 	}
 	free(data);
 }
