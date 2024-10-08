@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 03:49:27 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 05:41:26 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <fcntl.h>
 # include "../src/libft/libft.h"
 # include "../src/mlx_linux/mlx.h"
+
+# define CUBE_SIZE 64
 
 typedef struct s_textures
 {
@@ -48,6 +50,7 @@ typedef struct s_player
 {
 	t_vector	*current_position;
 	t_vector	*start_position;
+	double		rotation;
 }	t_player;
 
 typedef struct s_map

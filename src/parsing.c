@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 05:11:54 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/08 05:42:56 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,59 @@ void	ft_fill_map(char *old_line, int fd, t_map *map)
 	map->map_height = i;
 }
 
+int		ft_is_player_char(char c)
+{
+	return (c == 'N' || c == 'W' || c == 'E' || c == 'S');
+}
+
+t_vector	*ft_set_player_pos(int x, int y, char rot, t_player *player)
+{
+	t_vector	*pos;
+
+	if (!player->current_position)
+	{
+		pos = ft_calloc(1, sizeof(t_vector));
+		if (!pos)
+			return (NULL);
+		player->current_position = pos;
+	}
+	player->current_position->x = (y * CUBE_SIZE) + (CUBE_SIZE / 2);
+	player->current_position->y = (x * CUBE_SIZE) + (CUBE_SIZE / 2);
+	if (rot == 'N')
+		player->rotation = 'N';
+	else if (rot == 'S')
+		player->rotation = 'S';
+	else if (rot == 'W')
+		player->rotation = 'W';
+	else if (rot == 'E')
+		player->rotation = 'E';
+	return (player->current_position);
+	
+}
+
+void	get_player(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (data->map->map_2d[x])
+	{
+		y = 0;
+		while (data->map->map_2d[x][y])
+		{
+			if (ft_is_player_char(data->map->map_2d[x][y]))
+			{
+				ft_set_player_pos(x, y, data->map->map_2d[x][y], data->map->player);
+				data->map->is_player = 1;
+				data->map->map_2d[x][y] = '0';
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
 int		ft_parsing_map(int fd, t_data *data, int *n_line)
 {
 	char	*line;
@@ -299,6 +352,7 @@ int		ft_parsing_map(int fd, t_data *data, int *n_line)
 			if (!ft_init_map(data, n_line))
 				return (0);
 			ft_fill_map(line, fd, data->map);
+			get_player(data);
 		}
 		(*n_line)++;
 		line = get_next_line_trim(fd);
@@ -343,6 +397,11 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 	printf("Textures:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", data->textures->NO_file, data->textures->SO_file, data->textures->WE_file, data->textures->EA_file);
 	printf("Floor color: %d, %d, %d\n", data->textures->F_R, data->textures->F_G, data->textures->F_B);
 	printf("Ceiling color: %d, %d, %d\n", data->textures->C_R, data->textures->C_G, data->textures->C_B);
+	printf("Map:\n");
+	for (int i = 0; i < data->map->map_height; i++)
+		printf("%s\n", data->map->map_2d[i]);
+	printf("Player position: %f, %f\n", data->map->player->current_position->x, data->map->player->current_position->y);
+	printf("Player rotation: %f\n", data->map->player->rotation);
 	return (1);
 }
 
