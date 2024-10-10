@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:13:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:21:52 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/10 07:20:11 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,18 @@ void	ft_fill_map(char *old_line, int fd, t_map *map)
 	{
 		check = ft_strtrim(line, " t");
 		if (!check || !ft_strlen(check))
+		{
+			free(check);
 			break ;
+		}
 		map->map_2d[i++] = ft_strdup(line);
 		free(line);
 		free(check);
+		line = get_next_line_trim(fd);
+	}
+	while (line)
+	{
+		free(line);
 		line = get_next_line_trim(fd);
 	}
 	map->map_height = i;

@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:02:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:20:46 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/10 07:05:15 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	get_line_texture(char *line, t_textures *textures)
 	if (!line_tab || !line_tab[0] || !line_tab[1] || ft_strlen(line_tab[0]) > 2)
 		return (free_tab(line_tab));
 	element = line_tab[0];
-	if (!ft_strcmp(element, "NO") || (ft_strlen(element) == 1 && \
-			element[0] == 'N' ))
+	if ((!ft_strcmp(element, "NO") || (ft_strlen(element) == 1 && \
+			element[0] == 'N' )) && !textures->NO_file)
 		textures->NO_file = ft_strdup(line_tab[1]);
-	if (!ft_strcmp(element, "SO") || (ft_strlen(element) == 1 && \
-				element[0] == 'S'))
+	if ((!ft_strcmp(element, "SO") || (ft_strlen(element) == 1 && \
+				element[0] == 'S')) && !textures->SO_file)
 		textures->SO_file = ft_strdup(line_tab[1]);
-	if (!ft_strcmp(element, "WE") || (ft_strlen(element) == 1 && \
-				element[0] == 'W'))
+	if ((!ft_strcmp(element, "WE") || (ft_strlen(element) == 1 && \
+				element[0] == 'W')) && !textures->WE_file)
 		textures->WE_file = ft_strdup(line_tab[1]);
-	if (!ft_strcmp(element, "EA") || (ft_strlen(element) == 1 && \
-			element[0] == 'E'))
+	if ((!ft_strcmp(element, "EA") || (ft_strlen(element) == 1 && \
+			element[0] == 'E')) && !textures->EA_file)
 		textures->EA_file = ft_strdup(line_tab[1]);
 	free_tab(line_tab);
 	return (1);
