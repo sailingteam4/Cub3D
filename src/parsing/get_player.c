@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:11:50 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:19:41 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/10 07:34:37 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_vector	*ft_set_player_pos(int x, int y, char rot, t_player *player)
 		if (!pos)
 			return (NULL);
 		player->current_position = pos;
+		player->player_count = 0;
 	}
+	player->player_count++;
 	player->current_position->x = x;
 	player->current_position->y = y;
 	if (rot == 'N')

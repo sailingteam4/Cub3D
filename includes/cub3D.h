@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/08 05:41:26 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/10 07:31:45 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_textures
 	int		F_G;
 	int		F_B;
 	int		F_ok;
-
 	int		C_R;
 	int		C_G;
 	int		C_B;
@@ -51,6 +50,7 @@ typedef struct s_player
 	t_vector	*current_position;
 	t_vector	*start_position;
 	double		rotation;
+	int			player_count;
 }	t_player;
 
 typedef struct s_map
@@ -73,6 +73,6 @@ typedef struct s_data
 	int					n_line_file;
 }	t_data;
 
-# include "parsing.h"
+#include "parsing.h"
 
 #endif
