@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/09 00:16:10 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/10 04:47:44 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -491,6 +491,48 @@ int		check_map_lines(t_map *map)
 	return (1);
 }
 
+int		is_char_valid_walls_space(char c)
+{
+	return (c == '1' || c == '0');
+}
+
+int		check_walls_space(char **map, int x, int y)
+{
+	if (map[x] && map[x][y])
+	{
+		if ((x > 0 && !is_char_valid_walls_space(map[x - 1][y]))
+		|| (map[x + 1] && !is_char_valid_walls_space(map[x + 1][y]))
+		|| !map[x + 1])
+			return (0);
+		else if ((y > 0 && !is_char_valid_walls_space(map[x][y - 1]))
+		|| !is_char_valid_walls_space(map[x][y + 1]))
+			return (0);
+		return (1);
+	}
+	return (0);
+}
+
+int		check_map_content(char **map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (map[x])
+	{
+		y = 0;
+		while (map[x][y])
+		{
+			if (map[x][y] == '0')
+				if (check_walls_space(map, x, y))
+					return (1);
+			y++;
+		}
+		x++;
+	}
+	return (0);
+}
+
 int		ft_check_map(t_data *data)
 {
 	if (!data->map->is_player)
@@ -499,6 +541,11 @@ int		ft_check_map(t_data *data)
 		return (0);
 	}
 	if (!check_map_lines(data->map))
+	{
+		printf("Error\nInvalid map\n");
+		return (0);
+	}
+	if (!check_map_content(data->map->map_2d))
 	{
 		printf("Error\nInvalid map\n");
 		return (0);
@@ -520,6 +567,7 @@ int		ft_get_content(int fd, t_data *data, char *filename)
 		return (0);
 	if (!ft_check_map(data))
 		return (0);
+	data->map->map_width = (int)get_max_line(data->map->map_2d);
 	big_print(data);
 	return (1);
 }
