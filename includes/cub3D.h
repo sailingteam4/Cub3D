@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/14 15:20:11 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:58:56 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@
 
 typedef struct s_textures
 {
-	char	*NO_file;
-	char	*SO_file;
-	char	*WE_file;
-	char	*EA_file;
+	char			*NO_file;
+	char			*SO_file;
+	char			*WE_file;
+	char			*EA_file;
 
-	int		F_R;
-	int		F_G;
-	int		F_B;
-	int		F_ok;
-	int		C_R;
-	int		C_G;
-	int		C_B;
-	int		C_ok;
+	int				F_R;
+	int				F_G;
+	int				F_B;
+	int				F_ok;
+	int				C_R;
+	int				C_G;
+	int				C_B;
+	int				C_ok;
 }	t_textures;
 
 typedef struct s_vector
@@ -68,11 +68,13 @@ typedef struct s_data
 {
 	void				*mlx;
 	void				*mlx_win;
+	void				*img;
 	struct s_map		*map;
 	struct s_textures	*textures;
 	int					n_line_file;
 }	t_data;
 
-#include "parsing.h"
+# include "parsing.h"
+# include "graphic.h"
 
 #endif

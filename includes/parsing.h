@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:17:00 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:15:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/14 15:50:42 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ int		ft_parsing_texture(int fd, t_data *data, int *n_line);
 // get_player.c
 t_vector	*ft_set_player_pos(int x, int y, char rot, t_player *player);
 void		get_player(t_data *data);
+
+// cehck_color_text.c
+int		is_texture_ok(t_textures *textures);
+int		is_color_ok(t_textures *textures);
 
 // map_utils.c
 void	ft_set_max_space(t_map *map);
