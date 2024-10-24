@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:25:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/02/22 09:38:16 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/09/04 01:56:44 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,9 @@ char	*ft_uitoa(unsigned int n);
 int		ft_num_len(unsigned	int num);
 void	ft_put_hex(unsigned int num, const char format);
 int		ft_hex_len(unsigned	int num);
+
+/* get next line */
+char	*get_next_line(int fd);
+#define BUFFER_SIZE 32
 
 #endif

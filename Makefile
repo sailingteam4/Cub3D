@@ -11,12 +11,13 @@ MLX_LIB = $(MLX)/libmlx.a
 
 MLX_LFLAGS = -L$(MLX) -lmlx -lXext -lX11 -lm
 
-SRC_DIR = src
-SRC = $(addprefix $(SRC_DIR)/, \
-		cub3D.c)
+SRC_DIRS = src/parsing src/window
+SRC_PARSING = $(addprefix src/parsing/, cub3D.c parsing.c utils.c init_struct.c free.c is_valid.c check_map.c get_texture.c line.c get_player.c map_utils.c check_color_text.c)
+SRC_WINDOW = $(addprefix src/window/, mlx_make.c keybinds.c mlx_utils.c draw_minimap.c)
+SRC = $(SRC_PARSING) $(SRC_WINDOW)
 
 OBJ_DIR = obj
-OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
 
 INC = -I$(LIBFT) -I$(MLX) -I includes
 
@@ -33,7 +34,7 @@ $(LIBFT_LIB):
 $(MLX_LIB):
 	make -C $(MLX)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(@D)
 	$(CLANG) $(CFLAGS) $(INC) -c $< -o $@
 
@@ -46,6 +47,13 @@ fclean: clean
 	$(RM) $(NAME)
 	make -C $(LIBFT) fclean
 
+mlx:
+	git clone https://github.com/42Paris/minilibx-linux.git src/mlx_linux
+	make -C $(MLX)
+
+norm:
+	norminette $(SRC_DIRS)
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re mlx
