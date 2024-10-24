@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:47:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:19:22 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/24 06:10:44 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_free_data(t_data *data)
 {
 	if (data->mlx)
 	{
+		if (data->img)
+			mlx_destroy_image(data->mlx, data->img);
 		if (data->mlx_win)
 			mlx_destroy_window(data->mlx, data->mlx_win);
 		mlx_destroy_display(data->mlx);

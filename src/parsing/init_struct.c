@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:44:50 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:21:04 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/24 05:58:26 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	ft_init_map(t_data *data, int *n_line)
 	data->map->player->start_position = NULL;
 	data->map->map_height = data->n_line_file - *n_line;
 	data->map->is_player = 0;
+	data->map->minimap_display = true;
 	map = ft_calloc(data->map->map_height + 1, sizeof(char *));
 	data->map->map_2d = map;
 	return (1);

@@ -12,7 +12,7 @@ MLX_LIB = $(MLX)/libmlx.a
 MLX_LFLAGS = -L$(MLX) -lmlx -lXext -lX11 -lm
 
 SRC_DIR = src/parsing
-SRC =   $(addprefix $(SRC_DIR)/, cub3D.c parsing.c utils.c init_struct.c free.c is_valid.c check_map.c get_texture.c line.c get_player.c map_utils.c check_color_text.c mlx_make.c)
+SRC =   $(addprefix $(SRC_DIR)/, cub3D.c parsing.c utils.c init_struct.c free.c is_valid.c check_map.c get_texture.c line.c get_player.c map_utils.c check_color_text.c mlx_make.c keybinds.c mlx_utils.c draw_minimap.c)
 
 OBJ_DIR = obj
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

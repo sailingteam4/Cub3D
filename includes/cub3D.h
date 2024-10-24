@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/14 17:58:56 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/10/24 05:56:36 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include "../src/libft/libft.h"
 # include "../src/mlx_linux/mlx.h"
+# include "../src/mlx_linux/mlx_int.h"
 
 # define CUBE_SIZE 64
 
@@ -62,13 +63,14 @@ typedef struct s_map
 	void				*textures[4];
 	struct s_player		*player;
 	int					is_player;
+	bool				minimap_display;
 }	t_map;
 
 typedef struct s_data
 {
 	void				*mlx;
 	void				*mlx_win;
-	void				*img;
+	t_img				*img;
 	struct s_map		*map;
 	struct s_textures	*textures;
 	int					n_line_file;
