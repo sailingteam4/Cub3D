@@ -49,6 +49,9 @@ mlx:
 	git clone https://github.com/42Paris/minilibx-linux.git src/mlx_linux
 	make -C $(MLX)
 
+norm:
+	norminette $(SRC_DIR)
+
 re: fclean all
 
 .PHONY: all clean fclean re mlx
