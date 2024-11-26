@@ -31,6 +31,7 @@ int	check_map_lines(t_map *map)
 	char	*line;
 	char	*trimmed_line;
 	int		i;
+	int		last_wall;
 
 	i = 0;
 	line = map->map_2d[i];
@@ -42,9 +43,12 @@ int	check_map_lines(t_map *map)
 			break ;
 		else if (ft_check_chars(trimmed_line))
 			return (free(trimmed_line), 0);
-		if (ft_strlen(trimmed_line) && \
-			(trimmed_line[0] != '1' || \
-				trimmed_line[ft_strlen(trimmed_line) - 1] != '1'))
+		if (ft_strlen(trimmed_line) && trimmed_line[0] != '1')
+			return (free(trimmed_line), 0);
+		last_wall = ft_strlen(trimmed_line) - 1;
+		while (last_wall >= 0 && trimmed_line[last_wall] == '0')
+			last_wall--;
+		if (last_wall >= 0 && trimmed_line[last_wall] != '1')
 			return (free(trimmed_line), 0);
 		free(trimmed_line);
 	}
@@ -53,18 +57,17 @@ int	check_map_lines(t_map *map)
 
 int	check_walls_space(char **map, int x, int y)
 {
-	if (map[x] && map[x][y])
-	{
-		if ((x > 0 && !is_char_valid_walls_space(map[x - 1][y]))
-		|| (map[x + 1] && !is_char_valid_walls_space(map[x + 1][y]))
-		|| !map[x + 1])
-			return (0);
-		else if ((y > 0 && !is_char_valid_walls_space(map[x][y - 1]))
-		|| !is_char_valid_walls_space(map[x][y + 1]))
-			return (0);
-		return (1);
-	}
-	return (0);
+	if (!map[x] || !map[x][y])
+		return (0);
+	if (x == 0 || (!map[x - 1][y] || (map[x - 1][y] != '1' && map[x - 1][y] != '0')))
+		return (0);
+	if (!map[x + 1] || (!map[x + 1][y] || (map[x + 1][y] != '1' && map[x + 1][y] != '0')))
+		return (0);
+	if (y == 0 || (!map[x][y - 1] || (map[x][y - 1] != '1' && map[x][y - 1] != '0')))
+		return (0);
+	if (!map[x][y + 1] || (map[x][y + 1] != '1' && map[x][y + 1] != '0'))
+		return (0);
+	return (1);
 }
 
 int	check_map_content(char **map)
@@ -78,12 +81,14 @@ int	check_map_content(char **map)
 		y = 0;
 		while (map[x][y])
 		{
-			if (map[x][y] == '0')
-				if (check_walls_space(map, x, y))
-					return (1);
+			if (map[x][y] == '0' || ft_is_player_char(map[x][y]))
+			{
+				if (!check_walls_space(map, x, y))
+					return (0);
+			}
 			y++;
 		}
 		x++;
 	}
-	return (0);
+	return (1);
 }
