@@ -21,6 +21,7 @@ void	exit_mlx(t_data *data)
 int	key_press(int keycode, t_data *data)
 {
 	float movement_speed = 0.1f;
+	float rotation_speed = 0.1f;
 
 	if (keycode == 65307)
 		exit_mlx(data);
@@ -47,6 +48,20 @@ int	key_press(int keycode, t_data *data)
 	if (keycode == 109)
 	{
 		data->map->minimap_display = !data->map->minimap_display;
+		update_minimap(data, HEIGHT / 80);
+	}
+	if (keycode == 65361) // Left arrow
+	{
+		data->map->player->rotation -= rotation_speed;
+		if (data->map->player->rotation < 0)
+			data->map->player->rotation += 2 * M_PI;
+		update_minimap(data, HEIGHT / 80);
+	}
+	if (keycode == 65363) // Right arrow
+	{
+		data->map->player->rotation += rotation_speed;
+		if (data->map->player->rotation > 2 * M_PI)
+			data->map->player->rotation -= 2 * M_PI;
 		update_minimap(data, HEIGHT / 80);
 	}
 	return (0);

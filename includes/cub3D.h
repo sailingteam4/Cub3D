@@ -22,6 +22,7 @@
 # include "../src/mlx_linux/mlx_int.h"
 
 # define CUBE_SIZE 64
+# define M_PI 3.14159265358979323846
 
 typedef struct s_textures
 {

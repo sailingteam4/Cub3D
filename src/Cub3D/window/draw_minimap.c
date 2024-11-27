@@ -56,12 +56,11 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 	if (x == (int)player_x && y == (int)player_y)
 	{
 		int player_size = size_modifier / 3;
-		int offset = (size_modifier - player_size) / 2;
 		color = mlx_rgb_to_int(0, 0, 255, 0);
 		
 		float precise_x = (player_x - (int)player_x) * size_modifier;
 		float precise_y = (player_y - (int)player_y) * size_modifier;
-		
+
 		i = -player_size/2;
 		while (i < player_size/2)
 		{
@@ -76,7 +75,21 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 			}
 			i++;
 		}
-		(void)offset;
+
+		color = mlx_rgb_to_int(0, 255, 255, 0);
+		float dir_x = cos(data->map->player->rotation) * size_modifier;
+		float dir_y = sin(data->map->player->rotation) * size_modifier;
+		int line_length = size_modifier;
+		
+		i = 0;
+		while (i < line_length)
+		{
+			mlx_draw_pixel(data->img,
+				x * size_modifier + precise_x + (dir_x * i / line_length),
+				y * size_modifier + precise_y + (dir_y * i / line_length),
+				color);
+			i++;
+		}
 	}
 }
 
@@ -94,7 +107,7 @@ int	put_minimap(t_data *data, int size_modifier)
 			draw_minimap_tile(data, x, y, size_modifier);
 			x++;
 		}
-		y++;
+		y++; 
 	}
 	return (1);
 }
