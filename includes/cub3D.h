@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/24 05:56:36 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/11/27 12:44:40 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../src/mlx_linux/mlx_int.h"
 
 # define CUBE_SIZE 64
+# define M_PI 3.14159265358979323846
 
 typedef struct s_textures
 {
@@ -51,6 +52,8 @@ typedef struct s_player
 	t_vector	*current_position;
 	t_vector	*start_position;
 	double		rotation;
+	double		delta_x;
+	double		delta_y;
 	int			player_count;
 }	t_player;
 
