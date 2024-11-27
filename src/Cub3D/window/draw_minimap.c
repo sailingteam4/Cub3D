@@ -17,25 +17,66 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 	int	color;
 	int	i;
 	int	j;
+	float player_x = data->map->player->current_position->y;
+	float player_y = data->map->player->current_position->x;
 
 	if (data->map->map_2d[y][x] == '1')
-		color = mlx_rgb_to_int(0, 255, 255, 255);
-	else if (y == (int)data->map->player->current_position->x && \
-		x == (int)data->map->player->current_position->y)
-		color = mlx_rgb_to_int(0, 0, 255, 0);
-	else
-		color = mlx_rgb_to_int(0, 100, 0, 0);
-	i = 0;
-	while (i < size_modifier)
 	{
-		j = 0;
-		while (j < size_modifier)
+		color = mlx_rgb_to_int(0, 255, 255, 255);
+		i = 0;
+		while (i < size_modifier)
 		{
-			mlx_draw_pixel(data->img, x * size_modifier + \
-				i, y * size_modifier + j, color);
-			j++;
+			j = 0;
+			while (j < size_modifier)
+			{
+				mlx_draw_pixel(data->img, x * size_modifier + i, 
+					y * size_modifier + j, color);
+				j++;
+			}
+			i++;
 		}
-		i++;
+	}
+	else
+	{
+		color = mlx_rgb_to_int(0, 100, 0, 0);
+		i = 0;
+		while (i < size_modifier)
+		{
+			j = 0;
+			while (j < size_modifier)
+			{
+				mlx_draw_pixel(data->img, x * size_modifier + i, 
+					y * size_modifier + j, color);
+				j++;
+			}
+			i++;
+		}
+	}
+
+	if (x == (int)player_x && y == (int)player_y)
+	{
+		int player_size = size_modifier / 3;
+		int offset = (size_modifier - player_size) / 2;
+		color = mlx_rgb_to_int(0, 0, 255, 0);
+		
+		float precise_x = (player_x - (int)player_x) * size_modifier;
+		float precise_y = (player_y - (int)player_y) * size_modifier;
+		
+		i = -player_size/2;
+		while (i < player_size/2)
+		{
+			j = -player_size/2;
+			while (j < player_size/2)
+			{
+				mlx_draw_pixel(data->img, 
+					x * size_modifier + precise_x + i, 
+					y * size_modifier + precise_y + j, 
+					color);
+				j++;
+			}
+			i++;
+		}
+		(void)offset;
 	}
 }
 
