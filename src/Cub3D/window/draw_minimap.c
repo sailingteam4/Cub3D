@@ -12,6 +12,24 @@
 
 #include "../../includes/cub3D.h"
 
+static float get_distance_to_wall(t_data *data, float x, float y, float angle)
+{
+    float ray_x = x;
+    float ray_y = y;
+    float dir_x = cos(-angle);
+    float dir_y = sin(-angle);
+    float step = 0.01;
+
+    while (ray_x >= 0 && ray_x < data->map->map_width && 
+           ray_y >= 0 && ray_y < data->map->map_height && 
+           data->map->map_2d[(int)ray_y][(int)ray_x] != '1')
+    {
+        ray_x += dir_x * step;
+        ray_y += dir_y * step;
+    }
+    return sqrt((ray_x - x) * (ray_x - x) + (ray_y - y) * (ray_y - y));
+}
+
 void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 {
 	int	color;
@@ -77,16 +95,18 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 		}
 
 		color = mlx_rgb_to_int(0, 255, 255, 0);
-		float dir_x = cos(-data->map->player->rotation) * size_modifier;
-		float dir_y = sin(-data->map->player->rotation) * size_modifier;
-		int line_length = size_modifier;
+		float dir_x = cos(-data->map->player->rotation);
+		float dir_y = sin(-data->map->player->rotation);
+		float dist = get_distance_to_wall(data, player_x, player_y, 
+										data->map->player->rotation);
+        int line_length = dist * size_modifier;
 		
 		i = 0;
 		while (i < line_length)
 		{
 			mlx_draw_pixel(data->img,
-				x * size_modifier + precise_x + (dir_x * i / line_length),
-				y * size_modifier + precise_y + (dir_y * i / line_length),
+				x * size_modifier + precise_x + (dir_x * i),
+				y * size_modifier + precise_y + (dir_y * i),
 				color);
 			i++;
 		}
