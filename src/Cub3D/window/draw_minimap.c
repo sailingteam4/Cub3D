@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/27 13:25:18 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/11/27 14:21:55 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 		}
 
 		color = mlx_rgb_to_int(0, 255, 255, 0);
-		float dir_x = cos(data->map->player->rotation) * size_modifier;
-		float dir_y = sin(data->map->player->rotation) * size_modifier;
+		float dir_x = cos(-data->map->player->rotation) * size_modifier;
+		float dir_y = sin(-data->map->player->rotation) * size_modifier;
 		int line_length = size_modifier;
 		
 		i = 0;
