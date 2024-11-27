@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/27 12:39:20 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/11/27 13:25:06 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,33 @@ void	exit_mlx(t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
-	float movement_speed = 0.1f;
+	//float movement_speed = 0.1f;
 	float rotation_speed = 0.1f;
 
 	if (keycode == 65307)
 		exit_mlx(data);
 	if (keycode == 119) // W
 	{
-		data->map->player->current_position->x -= movement_speed;
+		data->map->player->current_position->x += data->map->player->delta_x;
+		data->map->player->current_position->y += data->map->player->delta_y;
 		update_minimap(data, HEIGHT / 80);
 	}
 	if (keycode == 115) // S
 	{
-		data->map->player->current_position->x += movement_speed;
+		data->map->player->current_position->x -= data->map->player->delta_x;
+		data->map->player->current_position->y -= data->map->player->delta_y;
 		update_minimap(data, HEIGHT / 80);
 	}
 	if (keycode == 97) // A
 	{
-		data->map->player->current_position->y -= movement_speed;
+		data->map->player->current_position->x -= data->map->player->delta_x;
+		data->map->player->current_position->y += data->map->player->delta_y;;
 		update_minimap(data, HEIGHT / 80);
 	}
 	if (keycode == 100) // D
 	{
-		data->map->player->current_position->y += movement_speed;
+		data->map->player->current_position->x += data->map->player->delta_x;
+		data->map->player->current_position->y -= data->map->player->delta_y;
 		update_minimap(data, HEIGHT / 80);
 	}
 	if (keycode == 109)
@@ -55,6 +59,8 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->rotation -= rotation_speed;
 		if (data->map->player->rotation < 0)
 			data->map->player->rotation += 2 * M_PI;
+		data->map->player->delta_x = cos(data->map->player->rotation) * 5;
+		data->map->player->delta_y = sin(data->map->player->rotation) * 5;
 		update_minimap(data, HEIGHT / 80);
 	}
 	if (keycode == 65363) // Right arrow
@@ -62,6 +68,8 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->rotation += rotation_speed;
 		if (data->map->player->rotation > 2 * M_PI)
 			data->map->player->rotation -= 2 * M_PI;
+		data->map->player->delta_x = cos(data->map->player->rotation) * 5;
+		data->map->player->delta_y = sin(data->map->player->rotation) * 5;
 		update_minimap(data, HEIGHT / 80);
 	}
 	return (0);

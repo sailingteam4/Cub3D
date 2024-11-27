@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+         #
+#    By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 21:00:06 by nrontey           #+#    #+#              #
-#    Updated: 2024/10/08 04:02:22 by nrontey          ###   ########.fr        #
+#    Updated: 2024/11/27 13:16:13 by tpipi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fPIE
 RM = rm -f
 CLEAR = clear
 
