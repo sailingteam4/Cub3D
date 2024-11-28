@@ -67,7 +67,6 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->delta_y = sin(data->map->player->rotation) * 5;
 		update_minimap(data, HEIGHT / 80);
 	}
-	printf("angle : %f", data->map->player->rotation * 57.2958);
 	return (0);
 }
 

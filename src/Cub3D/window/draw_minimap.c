@@ -95,20 +95,39 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 		}
 
 		color = mlx_rgb_to_int(0, 255, 255, 0);
-		float dir_x = cos(-data->map->player->rotation);
-		float dir_y = sin(-data->map->player->rotation);
-		float dist = get_distance_to_wall(data, player_x, player_y, 
-										data->map->player->rotation);
-        int line_length = dist * size_modifier;
-		
-		i = 0;
-		while (i < line_length)
+		float fov = M_PI / 3;
+		int num_rays = data->img->width;
+		float ray_angle;
+		float angle_step = fov / num_rays;
+		float start_angle = data->map->player->rotation - (fov / 2);
+		int ray = 0;
+
+		while (ray < num_rays)
 		{
-			mlx_draw_pixel(data->img,
-				x * size_modifier + precise_x + (dir_x * i),
-				y * size_modifier + precise_y + (dir_y * i),
-				color);
-			i++;
+			ray_angle = start_angle + (ray * angle_step);
+			float dist = get_distance_to_wall(data, player_x, player_y, ray_angle);
+			float dir_x = cos(-ray_angle);
+			float dir_y = sin(-ray_angle);
+			float line_length = dist * size_modifier;
+			float step = 0.5;
+
+			float start_x = x * size_modifier + precise_x;
+			float start_y = y * size_modifier + precise_y;
+			
+			float current_dist = 0;
+			while (current_dist < line_length)
+			{
+				float pixel_x = start_x + (dir_x * current_dist);
+				float pixel_y = start_y + (dir_y * current_dist);
+				
+				if (pixel_x >= 0 && pixel_x < data->img->width &&
+					pixel_y >= 0 && pixel_y < data->img->height)
+				{
+					mlx_draw_pixel(data->img, (int)pixel_x, (int)pixel_y, color);
+				}
+				current_dist += step;
+				}
+			ray += 8;
 		}
 	}
 }
@@ -138,8 +157,8 @@ int	update_minimap(t_data *data, int size_modifier)
 	{
 		put_minimap(data, size_modifier);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
-		return (1);
 	}
+		return (1);
 	mlx_clear_window(data->mlx, data->mlx_win);
 	return (0);
 }
