@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3D.h"
 
-static float get_distance_to_wall(t_data *data, float x, float y, float angle)
+float get_distance_to_wall(t_data *data, float x, float y, float angle)
 {
     float ray_x = x;
     float ray_y = y;
@@ -151,14 +151,18 @@ int	put_minimap(t_data *data, int size_modifier)
 	return (1);
 }
 
-int	update_minimap(t_data *data, int size_modifier)
-{
-	if (data->map->minimap_display)
-	{
-		put_minimap(data, size_modifier);
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
-	}
-		return (1);
-	mlx_clear_window(data->mlx, data->mlx_win);
-	return (0);
+void render_3d_view(t_data *data);
+
+int update_minimap(t_data *data, int size_modifier)
+{    mlx_clear_window(data->mlx, data->mlx_win);
+    
+    render_3d_view(data);
+    
+    if (data->map->minimap_display)
+    {
+        put_minimap(data, size_modifier);
+    }
+    
+    mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+    return (1);
 }
