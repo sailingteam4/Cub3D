@@ -18,55 +18,91 @@ void	exit_mlx(t_data *data)
 	exit(0);
 }
 
+void	move_player(t_data *data)
+{
+	float movement_speed = 0.01f;
+	float rotation_speed = 0.03f;
+	t_player *player = data->map->player;
+	float delta_x_3d = cos(player->rotation) * 5;
+	float delta_y_3d = sin(player->rotation) * 5;
+
+	if (player->moving_forward)
+	{
+		player->current_position->x -= player->delta_y * movement_speed;
+		player->current_position->y += player->delta_x * movement_speed;
+	}
+	if (player->moving_backward)
+	{
+		player->current_position->x += player->delta_y * movement_speed;
+		player->current_position->y -= player->delta_x * movement_speed;
+	}
+	if (player->moving_left)
+	{
+		player->current_position->x += delta_x_3d * movement_speed;
+		player->current_position->y += delta_y_3d * movement_speed;
+	}
+	if (player->moving_right)
+	{
+		player->current_position->x -= delta_x_3d * movement_speed;
+		player->current_position->y -= delta_y_3d * movement_speed;
+	}
+	if (player->rotating_left)
+	{
+		player->rotation -= rotation_speed;
+		if (player->rotation < 0)
+			player->rotation += 2 * M_PI;
+		player->delta_x = cos(player->rotation) * 5;
+		player->delta_y = sin(player->rotation) * 5;
+	}
+	if (player->rotating_right)
+	{
+		player->rotation += rotation_speed;
+		if (player->rotation > 2 * M_PI)
+			player->rotation -= 2 * M_PI;
+		player->delta_x = cos(player->rotation) * 5;
+		player->delta_y = sin(player->rotation) * 5;
+	}
+	if (player->moving_forward || player->moving_backward || 
+		player->moving_left || player->moving_right || 
+		player->rotating_left || player->rotating_right)
+	{
+		update_minimap(data, HEIGHT / 80);
+	}
+}
+
 int	key_press(int keycode, t_data *data)
 {
-	float movement_speed = 0.1f;
-	float rotation_speed = 0.1f;
-
 	if (keycode == 65307)
 		exit_mlx(data);
-    if (keycode == 119) // W - Forward
-    {
-        data->map->player->current_position->x -= data->map->player->delta_y * movement_speed;
-        data->map->player->current_position->y += data->map->player->delta_x * movement_speed;
-        update_minimap(data, HEIGHT / 80);
-    }
-    if (keycode == 115) // S - Backward
-    {
-        data->map->player->current_position->x += data->map->player->delta_y * movement_speed;
-        data->map->player->current_position->y -= data->map->player->delta_x * movement_speed;
-        update_minimap(data, HEIGHT / 80);
-    }
-    if (keycode == 97) // A - Strafe left
-    {
-        data->map->player->current_position->x -= data->map->player->delta_x * movement_speed;
-        data->map->player->current_position->y -= data->map->player->delta_y * movement_speed;
-        update_minimap(data, HEIGHT / 80);
-    }
-    if (keycode == 100) // D - Strafe right
-    {
-        data->map->player->current_position->x += data->map->player->delta_x * movement_speed;
-        data->map->player->current_position->y += data->map->player->delta_y * movement_speed;
-        update_minimap(data, HEIGHT / 80);
-    }
-	if (keycode == 65361) // Left arrow
-	{
-		data->map->player->rotation += rotation_speed;
-		if (data->map->player->rotation > 2 * M_PI)
-			data->map->player->rotation -= 2 * M_PI;
-		data->map->player->delta_x = cos(data->map->player->rotation) * 5;
-		data->map->player->delta_y = sin(data->map->player->rotation) * 5;
-		update_minimap(data, HEIGHT / 80);
-	}
-	if (keycode == 65363) // Right arrow
-	{
-		data->map->player->rotation -= rotation_speed;
-		if (data->map->player->rotation < 0)
-			data->map->player->rotation += 2 * M_PI;
-		data->map->player->delta_x = cos(data->map->player->rotation) * 5;
-		data->map->player->delta_y = sin(data->map->player->rotation) * 5;
-		update_minimap(data, HEIGHT / 80);
-	}
+	if (keycode == 119)  // W
+		data->map->player->moving_forward = 1;
+	if (keycode == 115)  // S
+		data->map->player->moving_backward = 1;
+	if (keycode == 97)   // A
+		data->map->player->moving_left = 1;
+	if (keycode == 100)  // D
+		data->map->player->moving_right = 1;
+	if (keycode == 65361)  // Left arrow
+		data->map->player->rotating_left = 1;
+	if (keycode == 65363)  // Right arrow
+		data->map->player->rotating_right = 1;
+	return (0);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == 119)  // W
+		data->map->player->moving_forward = 0;
+	if (keycode == 115)  // S
+		data->map->player->moving_backward = 0;
+	if (keycode == 97)   // A
+		data->map->player->moving_left = 0;
+	if (keycode == 100)  // D
+		data->map->player->moving_right = 0;
+	if (keycode == 65361)  // Left arrow
+		data->map->player->rotating_left = 0;
+	if (keycode == 65363)  // Right arrow
+		data->map->player->rotating_right = 0;
 	return (0);
 }
 

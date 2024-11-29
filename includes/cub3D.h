@@ -55,6 +55,12 @@ typedef struct s_player
 	double		delta_x;
 	double		delta_y;
 	int			player_count;
+	int			moving_forward;
+	int			moving_backward;
+	int			moving_left;
+	int			moving_right;
+	int			rotating_left;
+	int			rotating_right;
 }	t_player;
 
 typedef struct s_map
