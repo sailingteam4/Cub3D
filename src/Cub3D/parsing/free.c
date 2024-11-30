@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:47:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/24 06:10:44 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/11/30 12:45:41 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,22 @@ static void	ft_free_player(t_player *player)
 	free(player);
 }
 
+static void	free_text_tab(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->map->textures[i])
+			mlx_destroy_image(data->mlx, data->map->textures[i]);
+		i++;
+	}
+}
+
 void	ft_free_data(t_data *data)
 {
+	free_text_tab(data);
 	if (data->mlx)
 	{
 		if (data->img)

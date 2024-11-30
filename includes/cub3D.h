@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/27 12:44:40 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/11/30 12:39:17 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_map
 	char				**map_2d;
 	int					map_height;
 	int					map_width;
-	void				*textures[4];
+	t_img				*textures[4];
 	struct s_player		*player;
 	int					is_player;
 	bool				minimap_display;
