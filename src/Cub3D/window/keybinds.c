@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/29 23:17:38 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/02 13:09:36 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->rotating_left = 1;
 	if (keycode == 65363)  // Right arrow
 		data->map->player->rotating_right = 1;
+	if (keycode == 109)  // M key
+	{
+		data->map->minimap_display = !data->map->minimap_display;
+		update_minimap(data, HEIGHT / 80);
+	}
 	return (0);
 }
 

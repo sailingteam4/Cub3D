@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-static void draw_vertical_line(t_data *data, int x, float wall_height, int color)
+static void draw_vertical_line(t_data *data, int x, float wall_height, float tex_x)
 {
     if (!data || !data->img || x < 0 || x >= data->img->width)
         return;
@@ -9,7 +9,21 @@ static void draw_vertical_line(t_data *data, int x, float wall_height, int color
     float wall_start = (screen_height - wall_height) / 2.0f;
     float wall_end = wall_start + wall_height;
     int y;
-    
+    t_texture *texture = data->map->textures[0];
+
+    if (!texture || !texture->addr || !texture->img)
+    {
+        int wall_color = mlx_rgb_to_int(0, 128, 128, 128);
+        y = (int)wall_start;
+        while (y < (int)wall_end && y < screen_height)
+        {
+            if (y >= 0)
+                mlx_draw_pixel(data->img, x, y, wall_color);
+            y++;
+        }
+        return;
+    }
+
     // ceiling
     y = 0;
     while (y < (int)wall_start && y < screen_height)
@@ -19,27 +33,34 @@ static void draw_vertical_line(t_data *data, int x, float wall_height, int color
         y++;
     }
 
-    // remove shit on the top of the walls
-    if (wall_start >= 0 && wall_start < screen_height)
-    {
-        float fraction = wall_start - (int)wall_start;
-        if (fraction > 0.0f)
-        {
-            int blend_color = mlx_rgb_to_int(0,
-                (int)(100 * (1 - fraction) + ((color >> 16) & 0xFF) * fraction),
-                (int)(100 * (1 - fraction) + ((color >> 8) & 0xFF) * fraction),
-                (int)(100 * (1 - fraction) + (color & 0xFF) * fraction)
-            );
-            mlx_draw_pixel(data->img, x, (int)wall_start, blend_color);
-        }
-    }
-
     // wall
-    y = (int)wall_start + 1;
+    y = (int)wall_start;
     while (y < (int)wall_end && y < screen_height)
     {
         if (y >= 0)
-            mlx_draw_pixel(data->img, x, y, color);
+        {
+            // Use floating-point calculations for smoother texture sampling
+            float wall_y = (y - wall_start) / wall_height;
+            float tex_y_float = wall_y * texture->height;
+            int tex_y = (int)tex_y_float;
+            
+            // Ensure we stay within texture bounds
+            tex_y = fmax(0, fmin(tex_y, texture->height - 1));
+            
+            // Calculate precise texture coordinates
+            float tex_x_precise = tex_x * (texture->width - 1);
+            int tex_x_int = (int)tex_x_precise;
+            
+            // Get color from texture with bounds checking
+            if (tex_x_int >= 0 && tex_x_int < texture->width &&
+                tex_y >= 0 && tex_y < texture->height)
+            {
+                unsigned char *pixel = (unsigned char *)texture->addr + 
+                                     (tex_y * texture->line_length + tex_x_int * 4);
+                unsigned int color = *(unsigned int*)pixel;
+                mlx_draw_pixel(data->img, x, y, color);
+            }
+        }
         y++;
     }
 
@@ -62,29 +83,107 @@ void render_3d_view(t_data *data)
     int num_rays = data->img->width;
     float angle_step = fov / num_rays;
     float start_angle = data->map->player->rotation - (fov / 2);
-    int x;
-
-    x = 0;
-    while (x < num_rays)
+    
+    for (int x = 0; x < num_rays; x++)
     {
         float ray_angle = start_angle + (x * angle_step);
-        float dist = get_distance_to_wall(data, player_x, player_y, ray_angle);
         
-        // fisheye
-        dist = dist * cos(fabs(ray_angle - data->map->player->rotation));
+        // DDA algorithm variables
+        float ray_x = player_x;
+        float ray_y = player_y;
+        float dir_x = cos(-ray_angle);
+        float dir_y = sin(-ray_angle);
         
-        // wall height
-        float wall_height;
-        if (dist < 0.1)
-            wall_height = data->img->height;
+        // Calculate step and initial side distance
+        float delta_dist_x = fabs(1.0f / dir_x);
+        float delta_dist_y = fabs(1.0f / dir_y);
+        
+        int map_x = (int)ray_x;
+        int map_y = (int)ray_y;
+        
+        float side_dist_x;
+        float side_dist_y;
+        int step_x;
+        int step_y;
+        int hit = 0;
+        int side; // 0 for NS wall, 1 for EW wall
+        
+        // Calculate step direction and initial side distance
+        if (dir_x < 0)
+        {
+            step_x = -1;
+            side_dist_x = (ray_x - map_x) * delta_dist_x;
+        }
         else
-            wall_height = (data->img->height / dist) * 0.5;
+        {
+            step_x = 1;
+            side_dist_x = (map_x + 1.0f - ray_x) * delta_dist_x;
+        }
+        if (dir_y < 0)
+        {
+            step_y = -1;
+            side_dist_y = (ray_y - map_y) * delta_dist_y;
+        }
+        else
+        {
+            step_y = 1;
+            side_dist_y = (map_y + 1.0f - ray_y) * delta_dist_y;
+        }
         
-        // color intensity based on distance
-        int color_intensity = (int)(255.0f / (1.0f + dist * 0.7f));
-        int wall_color = mlx_rgb_to_int(0, color_intensity, color_intensity, color_intensity);
+        // DDA
+        while (!hit && map_x >= 0 && map_x < data->map->map_width && 
+               map_y >= 0 && map_y < data->map->map_height)
+        {
+            if (side_dist_x < side_dist_y)
+            {
+                side_dist_x += delta_dist_x;
+                map_x += step_x;
+                side = 0;
+            }
+            else
+            {
+                side_dist_y += delta_dist_y;
+                map_y += step_y;
+                side = 1;
+            }
+            
+            if (map_x >= 0 && map_x < data->map->map_width && 
+                map_y >= 0 && map_y < data->map->map_height && 
+                data->map->map_2d[map_y][map_x] == '1')
+                hit = 1;
+        }
         
-        draw_vertical_line(data, x, wall_height, wall_color);
-        x++;
+        // Calculate proper distance to remove fisheye
+        float angle_diff = ray_angle - data->map->player->rotation;
+        
+        // Normalize angle_diff to be between -PI and PI
+        while (angle_diff > M_PI) angle_diff -= 2 * M_PI;
+        while (angle_diff < -M_PI) angle_diff += 2 * M_PI;
+        
+        // Calculate perpendicular wall distance
+        float perp_wall_dist;
+        if (side == 0)
+            perp_wall_dist = (map_x - player_x + (1 - step_x) / 2) / dir_x;
+        else
+            perp_wall_dist = (map_y - player_y + (1 - step_y) / 2) / dir_y;
+            
+        // Remove fisheye by using cos of the angle difference
+        float corrected_dist = perp_wall_dist * cos(angle_diff);
+        float wall_height = (data->img->height / corrected_dist) * 0.75;
+        
+        // Calculate wall X coordinate
+        float wall_x;
+        if (side == 0)
+            wall_x = player_y + perp_wall_dist * dir_y;
+        else
+            wall_x = player_x + perp_wall_dist * dir_x;
+        wall_x -= floor(wall_x);
+        
+        // Choose texture and x coordinate
+        float tex_x = wall_x;
+        if ((side == 0 && dir_x > 0) || (side == 1 && dir_y < 0))
+            tex_x = 1.0f - tex_x;
+        
+        draw_vertical_line(data, x, wall_height, tex_x);
     }
 }

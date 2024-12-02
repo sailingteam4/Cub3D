@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:00:31 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/30 12:45:50 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/11/30 18:04:58 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,39 @@
 
 void	move_player(t_data *data);
 
-static void	texture_load(t_data *data, t_img **img, char *path)
+static void	texture_load(t_data *data, t_texture **img, char *path)
 {
-	int				width;
-	int				height;
+	int	width;
+	int	height;
+	int	bpp;
+	int	endian;
 
-	*img = mlx_xpm_file_to_image(data->mlx, path, &width, &height);
-	if (*img == 0)
+	if (!path || !data || !data->mlx)
+        return;
+
+	(*img) = malloc(sizeof(t_texture));
+	if (!(*img))
 		return ;
+	(*img)->img = mlx_xpm_file_to_image(data->mlx, path, &width, &height);
+	if ((*img)->img == NULL)
+	{
+		free(*img);
+		*img = NULL;
+		printf("Error: Failed to load texture: %s\n", path);
+		return ;
+	}
 	(*img)->width = width;
 	(*img)->height = height;
+	(*img)->addr = mlx_get_data_addr((*img)->img, &bpp, &(*img)->line_length, &endian);
+	if (!(*img)->addr)
+	{
+		mlx_destroy_image(data->mlx, (*img)->img);
+		free(*img);
+		*img = NULL;
+		printf("Error: Failed to get texture data address: %s\n", path);
+		return;
+	}
+	printf("Texture loaded successfully: %s (%dx%d)\n", path, width, height);
 }
 
 int	open_textures(t_data *data)

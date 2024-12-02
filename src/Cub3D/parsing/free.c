@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:47:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/30 12:45:41 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/11/30 18:13:49 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ static void	free_text_tab(t_data *data)
 	while (i < 4)
 	{
 		if (data->map->textures[i])
-			mlx_destroy_image(data->mlx, data->map->textures[i]);
+		{
+			if (data->map->textures[i]->img)
+				mlx_destroy_image(data->mlx, data->map->textures[i]->img);
+			free(data->map->textures[i]);
+		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/29 23:17:42 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/02 13:15:02 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,99 +35,64 @@ void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 	int	color;
 	int	i;
 	int	j;
+	int border_size = 1;
 	float player_x = data->map->player->current_position->y;
 	float player_y = data->map->player->current_position->x;
 
-	if (data->map->map_2d[y][x] == '1')
+	i = 0;
+	while (i < size_modifier)
 	{
-		color = mlx_rgb_to_int(0, 255, 255, 255);
-		i = 0;
-		while (i < size_modifier)
+		j = 0;
+		while (j < size_modifier)
 		{
-			j = 0;
-			while (j < size_modifier)
-			{
-				mlx_draw_pixel(data->img, x * size_modifier + i, 
-					y * size_modifier + j, color);
-				j++;
-			}
-			i++;
+			if (i < border_size || i >= size_modifier - border_size ||
+				j < border_size || j >= size_modifier - border_size)
+				color = mlx_rgb_to_int(0, 40, 40, 40);
+			else if (data->map->map_2d[y][x] == '1')
+				color = mlx_rgb_to_int(0, 70, 130, 180);
+			else
+				color = mlx_rgb_to_int(0, 47, 79, 79);
+			
+			mlx_draw_pixel(data->img, x * size_modifier + i, 
+				y * size_modifier + j, color);
+			j++;
 		}
-	}
-	else
-	{
-		color = mlx_rgb_to_int(0, 100, 0, 0);
-		i = 0;
-		while (i < size_modifier)
-		{
-			j = 0;
-			while (j < size_modifier)
-			{
-				mlx_draw_pixel(data->img, x * size_modifier + i, 
-					y * size_modifier + j, color);
-				j++;
-			}
-			i++;
-		}
+		i++;
 	}
 
+	// Draw player
 	if (x == (int)player_x && y == (int)player_y)
 	{
-		int player_size = size_modifier / 3;
-		color = mlx_rgb_to_int(0, 0, 255, 0);
+		int player_size = size_modifier / 2;
+		color = mlx_rgb_to_int(0, 255, 215, 0);
 		
 		float precise_x = (player_x - (int)player_x) * size_modifier;
 		float precise_y = (player_y - (int)player_y) * size_modifier;
 
-		i = -player_size/2;
-		while (i < player_size/2)
+		for (int radius = player_size/2; radius >= 0; radius--)
 		{
-			j = -player_size/2;
-			while (j < player_size/2)
-			{
-				mlx_draw_pixel(data->img, 
-					x * size_modifier + precise_x + i, 
-					y * size_modifier + precise_y + j, 
-					color);
-				j++;
-			}
-			i++;
-		}
-
-		color = mlx_rgb_to_int(0, 255, 255, 0);
-		float fov = M_PI / 3;
-		int num_rays = data->img->width;
-		float ray_angle;
-		float angle_step = fov / num_rays;
-		float start_angle = data->map->player->rotation - (fov / 2);
-		int ray = 0;
-
-		while (ray < num_rays)
-		{
-			ray_angle = start_angle + (ray * angle_step);
-			float dist = get_distance_to_wall(data, player_x, player_y, ray_angle);
-			float dir_x = cos(-ray_angle);
-			float dir_y = sin(-ray_angle);
-			float line_length = dist * size_modifier;
-			float step = 0.5;
-
-			float start_x = x * size_modifier + precise_x;
-			float start_y = y * size_modifier + precise_y;
+			int glow_color = mlx_rgb_to_int(0, 
+				255 - (radius * 30), 
+				215 - (radius * 25), 
+				0);
 			
-			float current_dist = 0;
-			while (current_dist < line_length)
+			i = -radius;
+			while (i <= radius)
 			{
-				float pixel_x = start_x + (dir_x * current_dist);
-				float pixel_y = start_y + (dir_y * current_dist);
-				
-				if (pixel_x >= 0 && pixel_x < data->img->width &&
-					pixel_y >= 0 && pixel_y < data->img->height)
+				j = -radius;
+				while (j <= radius)
 				{
-					mlx_draw_pixel(data->img, (int)pixel_x, (int)pixel_y, color);
+					if (i*i + j*j <= radius*radius)
+					{
+						mlx_draw_pixel(data->img, 
+							x * size_modifier + precise_x + i, 
+							y * size_modifier + precise_y + j, 
+							glow_color);
+					}
+					j++;
 				}
-				current_dist += step;
-				}
-			ray += 8;
+				i++;
+			}
 		}
 	}
 }
