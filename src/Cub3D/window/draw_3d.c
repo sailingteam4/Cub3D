@@ -106,7 +106,7 @@ void render_3d_view(t_data *data)
         int step_x;
         int step_y;
         int hit = 0;
-        int side; // 0 for NS wall, 1 for EW wall
+        int side = 0; // 0 for NS wall, 1 for EW wall
         
         // Calculate step direction and initial side distance
         if (dir_x < 0)

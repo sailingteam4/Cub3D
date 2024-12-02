@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/11/30 18:02:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/02 15:24:12 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ typedef struct s_player
 }	t_player;
 
 typedef struct s_texture {
-    void    *img;           // MLX image pointer
-    char    *addr;          // Image data address
+    void    *img;
+    char    *addr;
     int     width;
     int     height;
-    int     line_length;    // Length of a line in bytes
+    int     line_length;
 } t_texture;
 
 typedef struct s_map
@@ -77,7 +77,7 @@ typedef struct s_map
 	char				**map_2d;
 	int					map_height;
 	int					map_width;
-	t_texture			*textures[4];  // Changed from t_img to t_texture
+	t_texture			*textures[4];
 	struct s_player		*player;
 	int					is_player;
 	bool				minimap_display;
