@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/02 15:06:32 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 22:34:34 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,71 +30,104 @@ float get_distance_to_wall(t_data *data, float x, float y, float angle)
     return sqrt((ray_x - x) * (ray_x - x) + (ray_y - y) * (ray_y - y));
 }
 
-void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
+static void draw_tile_border(t_data *data, int x, int y, 
+    int size_modifier, int border_size)
 {
-	int	color;
-	int	i;
-	int	j;
-	int border_size = 1;
-	float player_x = data->map->player->current_position->y;
-	float player_y = data->map->player->current_position->x;
+    int i;
+    int j;
 
-	i = 0;
-	while (i < size_modifier)
-	{
-		j = 0;
-		while (j < size_modifier)
-		{
-			if (i < border_size || i >= size_modifier - border_size ||
-				j < border_size || j >= size_modifier - border_size)
-				color = mlx_rgb_to_int(0, 40, 40, 40);
-			else if (data->map->map_2d[y][x] == '1')
-				color = mlx_rgb_to_int(0, 70, 130, 180);
-			else
-				color = mlx_rgb_to_int(0, 47, 79, 79);
-			
-			mlx_draw_pixel(data->img, x * size_modifier + i, 
-				y * size_modifier + j, color);
-			j++;
-		}
-		i++;
-	}
+    i = 0;
+    while (i < size_modifier)
+    {
+        j = 0;
+        while (j < size_modifier)
+        {
+            if (i < border_size || i >= size_modifier - border_size ||
+                j < border_size || j >= size_modifier - border_size)
+                mlx_draw_pixel(data->img, x * size_modifier + i,
+                    y * size_modifier + j, mlx_rgb_to_int(0, 40, 40, 40));
+            j++;
+        }
+        i++;
+    }
+}
 
-	// Draw player
-	if (x == (int)player_x && y == (int)player_y)
-	{
-		int player_size = size_modifier / 2;
-		color = mlx_rgb_to_int(0, 255, 215, 0);
-		
-		float precise_x = (player_x - (int)player_x) * size_modifier;
-		float precise_y = (player_y - (int)player_y) * size_modifier;
+static void draw_tile_content(t_data *data, int x, int y, int size_modifier)
+{
+    int color;
+    int i;
+    int j;
 
-		for (int radius = player_size/2; radius >= 0; radius--)
-		{
-			int glow_color = mlx_rgb_to_int(0, 
-				255 - (radius * 30), 
-				215 - (radius * 25), 
-				0);
-			
-			i = -radius;
-			while (i <= radius)
-			{
-				j = -radius;
-				while (j <= radius)
-				{
-					if (i*i + j*j <= radius*radius)
-					{
-						mlx_draw_pixel(data->img, 
-							x * size_modifier + precise_x + i, 
-							y * size_modifier + precise_y + j, 
-							glow_color);
-					}
-					j++;
-				}
-				i++;
-			}
-		}
-	}
+    i = 1;
+    while (i < size_modifier - 1)
+    {
+        j = 1;
+        while (j < size_modifier - 1)
+        {
+            color = (data->map->map_2d[y][x] == '1') ?
+                mlx_rgb_to_int(0, 70, 130, 180) :
+                mlx_rgb_to_int(0, 47, 79, 79);
+            mlx_draw_pixel(data->img, x * size_modifier + i,
+                y * size_modifier + j, color);
+            j++;
+        }
+        i++;
+    }
+}
+
+static void draw_player_glow(t_data *data, float px, float py, int radius)
+{
+    int i;
+    int j;
+    int glow_color;
+
+    glow_color = mlx_rgb_to_int(0, 255 - (radius * 30),
+        215 - (radius * 25), 0);
+    i = -radius;
+    while (i <= radius)
+    {
+        j = -radius;
+        while (j <= radius)
+        {
+            if (i * i + j * j <= radius * radius)
+                mlx_draw_pixel(data->img, px + i, py + j, glow_color);
+            j++;
+        }
+        i++;
+    }
+}
+
+static void draw_player(t_data *data, int x, int y, int size_modifier)
+{
+    float precise_x;
+    float precise_y;
+    int player_size;
+    int radius;
+
+    player_size = size_modifier / 2;
+    precise_x = x * size_modifier + 
+        (data->map->player->current_position->y - (int)data->map->player->current_position->y) 
+        * size_modifier;
+    precise_y = y * size_modifier + 
+        (data->map->player->current_position->x - (int)data->map->player->current_position->x) 
+        * size_modifier;
+    
+    radius = player_size / 2;
+    while (radius >= 0)
+    {
+        draw_player_glow(data, precise_x, precise_y, radius);
+        radius--;
+    }
+}
+
+void draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
+{
+    draw_tile_border(data, x, y, size_modifier, 1);
+    draw_tile_content(data, x, y, size_modifier);
+    
+    if (x == (int)data->map->player->current_position->y && 
+        y == (int)data->map->player->current_position->x)
+        draw_player(data, x, y, size_modifier);
 }
 
 int	put_minimap(t_data *data, int size_modifier)
