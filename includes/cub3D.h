@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/03 15:35:15 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 17:16:49 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,38 @@ typedef struct s_texture {
     int     line_length;
 } t_texture;
 
+typedef struct s_ray_casting {
+	float	fov;
+	float	angle_step;
+	float	ray_angle;
+	float	ray_x;
+	float	ray_y;
+	float	dir_x;
+	float	dir_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	int		map_x;
+	int		map_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	float	wall_height;
+	float	tex_x;
+	int		texture_index;
+}	t_ray_casting;
+
+typedef struct s_draw_params {
+	int		x;
+	float	wall_height;
+	float	wall_start;
+	float	wall_end;
+	int		texture_index;
+	int		tex_x_int;
+}	t_draw_params;
+
 typedef struct s_map
 {
 	char				**map;
@@ -98,7 +130,13 @@ typedef struct s_data
 	int					n_line_file;
 }	t_data;
 
+void	init_step_distances(t_ray_casting *rc);
+void	calculate_wall_properties(t_ray_casting *rc, t_data *data);
+void	draw_simple_wall(t_data *data, int x, int wall_start, int wall_end);
+
 # include "parsing.h"
 # include "graphic.h"
+
+int	get_texture_index(t_ray_casting *rc);
 
 #endif

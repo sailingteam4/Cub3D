@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/24 06:07:42 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 16:40:55 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,6 @@ static int	ft_parsing_map(int fd, t_data *data, int *n_line)
 		line = get_next_line_trim(fd);
 	}
 	return (1);
-}
-
-static void	big_print(t_data *data)
-{
-	printf("Textures:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", data->textures->NO_file, data->textures->SO_file, data->textures->WE_file, data->textures->EA_file);
-	printf("Floor color: %d, %d, %d\n", data->textures->F_R, data->textures->F_G, data->textures->F_B);
-	printf("Ceiling color: %d, %d, %d\n", data->textures->C_R, data->textures->C_G, data->textures->C_B);
-	printf("Map:\n");
-	for (int i = 0; i < data->map->map_height; i++)
-		printf("%s|\n", data->map->map_2d[i]);
-	if (data->map->is_player)
-	{
-		printf("Player position: %f, %f\n", data->map->player->current_position->x, data->map->player->current_position->y);
-		printf("Player rotation: %f\n", data->map->player->rotation);
-	}
-	else
-		printf("Error\nNo player position found\n");
 }
 
 static int	ft_check_map(t_data *data)
@@ -95,7 +78,6 @@ static int	ft_get_content(int fd, t_data *data, char *filename)
 	if (!ft_check_map(data))
 		return (0);
 	data->map->map_width = (int)get_max_line(data->map->map_2d);
-	big_print(data);
 	return (1);
 }
 

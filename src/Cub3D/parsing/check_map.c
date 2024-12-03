@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:58:24 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/25 18:26:17 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 16:05:05 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ int	check_walls_space(char **map, int x, int y)
 {
 	if (!map[x] || !map[x][y])
 		return (0);
-	if (x == 0 || (!map[x - 1][y] || (map[x - 1][y] != '1' && map[x - 1][y] != '0')))
+	if (x == 0 || (!map[x - 1][y] || (map[x - 1][y] \
+			!= '1' && map[x - 1][y] != '0')))
 		return (0);
-	if (!map[x + 1] || (!map[x + 1][y] || (map[x + 1][y] != '1' && map[x + 1][y] != '0')))
+	if (!map[x + 1] || (!map[x + 1][y] || (map[x + 1][y] \
+			!= '1' && map[x + 1][y] != '0')))
 		return (0);
-	if (y == 0 || (!map[x][y - 1] || (map[x][y - 1] != '1' && map[x][y - 1] != '0')))
+	if (y == 0 || (!map[x][y - 1] || (map[x][y - 1] \
+			!= '1' && map[x][y - 1] != '0')))
 		return (0);
-	if (!map[x][y + 1] || (map[x][y + 1] != '1' && map[x][y + 1] != '0'))
+	if (!map[x][y + 1] || (map[x][y + 1] \
+			!= '1' && map[x][y + 1] != '0'))
 		return (0);
 	return (1);
 }

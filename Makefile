@@ -13,8 +13,8 @@ MLX_LFLAGS = -L$(MLX) -lmlx -lXext -lX11 -lm
 
 SRC_DIRS = src/Cub3D/parsing src/Cub3D/window
 SRC_PARSING = $(addprefix src/Cub3D/parsing/, cub3D.c parsing.c utils.c init_struct.c free.c is_valid.c check_map.c get_texture.c line.c get_player.c map_utils.c check_color_text.c)
-SRC_WINDOW = $(addprefix src/Cub3D/window/, mlx_make.c keybinds.c mlx_utils.c draw_minimap.c)
-SRC = $(SRC_PARSING) $(SRC_WINDOW) src/Cub3D/window/draw_3d.c
+SRC_WINDOW = $(addprefix src/Cub3D/window/, mlx_make.c keybinds.c mlx_utils.c draw_minimap.c draw_3d.c rc_utils.c)
+SRC = $(SRC_PARSING) $(SRC_WINDOW)
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
