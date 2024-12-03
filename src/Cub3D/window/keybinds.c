@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/02 15:24:45 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:51:58 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,51 @@ void	move_player(t_data *data)
 	t_player *player = data->map->player;
 	float delta_x_3d = cos(player->rotation) * 5;
 	float delta_y_3d = sin(player->rotation) * 5;
+	float new_x, new_y;
 
 	if (player->moving_forward)
 	{
-		player->current_position->x -= player->delta_y * movement_speed;
-		player->current_position->y += player->delta_x * movement_speed;
+		new_x = player->current_position->x - player->delta_y * movement_speed;
+		new_y = player->current_position->y + player->delta_x * movement_speed;
+		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+		{
+			player->current_position->x = new_x;
+			player->current_position->y = new_y;
+		}
 	}
 	if (player->moving_backward)
 	{
-		player->current_position->x += player->delta_y * movement_speed;
-		player->current_position->y -= player->delta_x * movement_speed;
+		new_x = player->current_position->x + player->delta_y * movement_speed;
+		new_y = player->current_position->y - player->delta_x * movement_speed;
+		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+		{
+			player->current_position->x = new_x;
+			player->current_position->y = new_y;
+		}
 	}
 	if (player->moving_left)
 	{
-		player->current_position->x += delta_x_3d * movement_speed;
-		player->current_position->y += delta_y_3d * movement_speed;
+		new_x = player->current_position->x + delta_x_3d * movement_speed;
+		new_y = player->current_position->y + delta_y_3d * movement_speed;
+		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+		{
+			player->current_position->x = new_x;
+			player->current_position->y = new_y;
+		}
 	}
 	if (player->moving_right)
 	{
-		player->current_position->x -= delta_x_3d * movement_speed;
-		player->current_position->y -= delta_y_3d * movement_speed;
+		new_x = player->current_position->x - delta_x_3d * movement_speed;
+		new_y = player->current_position->y - delta_y_3d * movement_speed;
+		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+		{
+			player->current_position->x = new_x;
+			player->current_position->y = new_y;
+		}
 	}
 	if (player->rotating_left)
 	{

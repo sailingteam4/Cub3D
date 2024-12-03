@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_3d.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
+/*   Updated: 2024/12/03 15:35:51 by nrontey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
-static void draw_vertical_line(t_data *data, int x, float wall_height, float tex_x)
+static void draw_vertical_line(t_data *data, int x, float wall_height, float tex_x, int texture_index)
 {
     if (!data || !data->img || x < 0 || x >= data->img->width)
         return;
@@ -9,7 +21,7 @@ static void draw_vertical_line(t_data *data, int x, float wall_height, float tex
     float wall_start = (screen_height - wall_height) / 2.0f;
     float wall_end = wall_start + wall_height;
     int y;
-    t_texture *texture = data->map->textures[0];
+    t_texture *texture = data->map->textures[texture_index];  // Use the specified texture
 
     if (!texture || !texture->addr || !texture->img)
     {
@@ -153,6 +165,23 @@ void render_3d_view(t_data *data)
                 hit = 1;
         }
         
+        // After hit detection, determine which texture to use based on orientation
+        int texture_index;
+        if (side == 0) // Vertical wall hit (East-West)
+        {
+            if (dir_x > 0) // Looking West, hit East wall
+                texture_index = TEXTURE_EA;
+            else // Looking East, hit West wall
+                texture_index = TEXTURE_WE;
+        }
+        else // Horizontal wall hit (North-South)
+        {
+            if (dir_y > 0) // Looking North, hit South wall
+                texture_index = TEXTURE_SO;
+            else // Looking South, hit North wall
+                texture_index = TEXTURE_NO;
+        }
+
         // Calculate proper distance to remove fisheye
         float angle_diff = ray_angle - data->map->player->rotation;
         
@@ -184,6 +213,7 @@ void render_3d_view(t_data *data)
         if ((side == 0 && dir_x > 0) || (side == 1 && dir_y < 0))
             tex_x = 1.0f - tex_x;
         
-        draw_vertical_line(data, x, wall_height, tex_x);
+        // Update draw_vertical_line call to include texture_index
+        draw_vertical_line(data, x, wall_height, tex_x, texture_index);
     }
 }

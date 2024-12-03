@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/02 15:24:12 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:35:15 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 
 # define CUBE_SIZE 64
 # define M_PI 3.14159265358979323846
+
+# define TEXTURE_NO 0  // North texture
+# define TEXTURE_SO 1  // South texture
+# define TEXTURE_WE 2  // West texture
+# define TEXTURE_EA 3  // East texture
 
 typedef struct s_textures
 {
