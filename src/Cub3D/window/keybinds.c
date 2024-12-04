@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/03 14:51:58 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/04 16:17:57 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,81 +18,84 @@ void	exit_mlx(t_data *data)
 	exit(0);
 }
 
-void	move_player(t_data *data)
+static void	handle_forward_movement(t_data *data, t_player *player, float speed)
 {
-	float movement_speed = 0.01f;
-	float rotation_speed = 0.03f;
-	t_player *player = data->map->player;
+	float new_x = player->current_position->x - player->delta_y * speed;
+	float new_y = player->current_position->y + player->delta_x * speed;
+
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	{
+		player->current_position->x = new_x;
+		player->current_position->y = new_y;
+	}
+}
+
+static void	handle_backward_movement(t_data *data, t_player *player, float speed)
+{
+	float new_x = player->current_position->x + player->delta_y * speed;
+	float new_y = player->current_position->y - player->delta_x * speed;
+
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	{
+		player->current_position->x = new_x;
+		player->current_position->y = new_y;
+	}
+}
+
+static void	handle_side_movement(t_data *data, t_player *player, float speed,
+	int direction)
+{
 	float delta_x_3d = cos(player->rotation) * 5;
 	float delta_y_3d = sin(player->rotation) * 5;
-	float new_x, new_y;
+	float new_x = player->current_position->x + (direction * -delta_x_3d * speed);
+	float new_y = player->current_position->y + (direction * -delta_y_3d * speed);
 
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
+		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	{
+		player->current_position->x = new_x;
+		player->current_position->y = new_y;
+	}
+}
+
+static void	handle_rotation(t_player *player, float speed, int direction)
+{
+	player->rotation += direction * speed;
+	if (player->rotation < 0)
+		player->rotation += 2 * M_PI;
+	else if (player->rotation > 2 * M_PI)
+		player->rotation -= 2 * M_PI;
+	player->delta_x = cos(player->rotation) * 5;
+	player->delta_y = sin(player->rotation) * 5;
+}
+
+void	move_player(t_data *data)
+{
+	float	movement_speed;
+	float	rotation_speed;
+	t_player *player;
+
+	movement_speed = 0.01f;
+	rotation_speed = 0.03f;
+	player = data->map->player;
 	if (player->moving_forward)
-	{
-		new_x = player->current_position->x - player->delta_y * movement_speed;
-		new_y = player->current_position->y + player->delta_x * movement_speed;
-		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
-		{
-			player->current_position->x = new_x;
-			player->current_position->y = new_y;
-		}
-	}
+		handle_forward_movement(data, player, movement_speed);
 	if (player->moving_backward)
-	{
-		new_x = player->current_position->x + player->delta_y * movement_speed;
-		new_y = player->current_position->y - player->delta_x * movement_speed;
-		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
-		{
-			player->current_position->x = new_x;
-			player->current_position->y = new_y;
-		}
-	}
+		handle_backward_movement(data, player, movement_speed);
 	if (player->moving_left)
-	{
-		new_x = player->current_position->x + delta_x_3d * movement_speed;
-		new_y = player->current_position->y + delta_y_3d * movement_speed;
-		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
-		{
-			player->current_position->x = new_x;
-			player->current_position->y = new_y;
-		}
-	}
+		handle_side_movement(data, player, movement_speed, -1);
 	if (player->moving_right)
-	{
-		new_x = player->current_position->x - delta_x_3d * movement_speed;
-		new_y = player->current_position->y - delta_y_3d * movement_speed;
-		if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-			data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
-		{
-			player->current_position->x = new_x;
-			player->current_position->y = new_y;
-		}
-	}
+		handle_side_movement(data, player, movement_speed, 1);
 	if (player->rotating_left)
-	{
-		player->rotation -= rotation_speed;
-		if (player->rotation < 0)
-			player->rotation += 2 * M_PI;
-		player->delta_x = cos(player->rotation) * 5;
-		player->delta_y = sin(player->rotation) * 5;
-	}
+		handle_rotation(player, rotation_speed, -1);
 	if (player->rotating_right)
-	{
-		player->rotation += rotation_speed;
-		if (player->rotation > 2 * M_PI)
-			player->rotation -= 2 * M_PI;
-		player->delta_x = cos(player->rotation) * 5;
-		player->delta_y = sin(player->rotation) * 5;
-	}
-	if (player->moving_forward || player->moving_backward || 
-		player->moving_left || player->moving_right || 
+		handle_rotation(player, rotation_speed, 1);
+	if (player->moving_forward || player->moving_backward ||
+		player->moving_left || player->moving_right ||
 		player->rotating_left || player->rotating_right)
-	{
 		update_minimap(data, HEIGHT / 80);
-	}
 }
 
 int	key_press(int keycode, t_data *data)
