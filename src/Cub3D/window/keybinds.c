@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 16:17:57 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/04 17:24:18 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,29 @@ void	exit_mlx(t_data *data)
 
 static void	handle_forward_movement(t_data *data, t_player *player, float speed)
 {
-	float new_x = player->current_position->x - player->delta_y * speed;
-	float new_y = player->current_position->y + player->delta_x * speed;
+	float	new_x;
+	float	new_y;
 
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	new_x = player->current_position->x - player->delta_y * speed;
+	new_y = player->current_position->y + player->delta_x * speed;
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
+	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;
 	}
 }
 
-static void	handle_backward_movement(t_data *data, t_player *player, float speed)
+static void	handle_backward_movement(t_data *data, t_player *player, \
+	float speed)
 {
-	float new_x = player->current_position->x + player->delta_y * speed;
-	float new_y = player->current_position->y - player->delta_x * speed;
+	float	new_x;
+	float	new_y;
 
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	new_x = player->current_position->x + player->delta_y * speed;
+	new_y = player->current_position->y - player->delta_x * speed;
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
+	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;
@@ -47,13 +52,17 @@ static void	handle_backward_movement(t_data *data, t_player *player, float speed
 static void	handle_side_movement(t_data *data, t_player *player, float speed,
 	int direction)
 {
-	float delta_x_3d = cos(player->rotation) * 5;
-	float delta_y_3d = sin(player->rotation) * 5;
-	float new_x = player->current_position->x + (direction * -delta_x_3d * speed);
-	float new_y = player->current_position->y + (direction * -delta_y_3d * speed);
+	float	delta_x_3d;
+	float	delta_y_3d;
+	float	new_x;
+	float	new_y;
 
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' &&
-		data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	delta_x_3d = cos(player->rotation) * 5;
+	delta_y_3d = sin(player->rotation) * 5;
+	new_x = player->current_position->x + (direction * -delta_x_3d * speed);
+	new_y = player->current_position->y + (direction * -delta_y_3d * speed);
+	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
+	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;
@@ -73,9 +82,9 @@ static void	handle_rotation(t_player *player, float speed, int direction)
 
 void	move_player(t_data *data)
 {
-	float	movement_speed;
-	float	rotation_speed;
-	t_player *player;
+	float		movement_speed;
+	float		rotation_speed;
+	t_player	*player;
 
 	movement_speed = 0.01f;
 	rotation_speed = 0.03f;
@@ -92,8 +101,8 @@ void	move_player(t_data *data)
 		handle_rotation(player, rotation_speed, -1);
 	if (player->rotating_right)
 		handle_rotation(player, rotation_speed, 1);
-	if (player->moving_forward || player->moving_backward ||
-		player->moving_left || player->moving_right ||
+	if (player->moving_forward || player->moving_backward || \
+		player->moving_left || player->moving_right || \
 		player->rotating_left || player->rotating_right)
 		update_minimap(data, HEIGHT / 80);
 }
@@ -102,19 +111,19 @@ int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		exit_mlx(data);
-	if (keycode == 119)  // W
+	if (keycode == 119)
 		data->map->player->moving_forward = 1;
-	if (keycode == 115)  // S
+	if (keycode == 115)
 		data->map->player->moving_backward = 1;
-	if (keycode == 97)   // A
+	if (keycode == 97)
 		data->map->player->moving_left = 1;
-	if (keycode == 100)  // D
+	if (keycode == 100)
 		data->map->player->moving_right = 1;
-	if (keycode == 65361)  // Left arrow
+	if (keycode == 65361)
 		data->map->player->rotating_left = 1;
-	if (keycode == 65363)  // Right arrow
+	if (keycode == 65363)
 		data->map->player->rotating_right = 1;
-	if (keycode == 109)  // M key
+	if (keycode == 109)
 	{
 		data->map->minimap_display = !data->map->minimap_display;
 		update_minimap(data, HEIGHT / 80);
@@ -124,17 +133,17 @@ int	key_press(int keycode, t_data *data)
 
 int	key_release(int keycode, t_data *data)
 {
-	if (keycode == 119)  // W
+	if (keycode == 119)
 		data->map->player->moving_forward = 0;
-	if (keycode == 115)  // S
+	if (keycode == 115)
 		data->map->player->moving_backward = 0;
-	if (keycode == 97)   // A
+	if (keycode == 97)
 		data->map->player->moving_left = 0;
-	if (keycode == 100)  // D
+	if (keycode == 100)
 		data->map->player->moving_right = 0;
-	if (keycode == 65361)  // Left arrow
+	if (keycode == 65361)
 		data->map->player->rotating_left = 0;
-	if (keycode == 65363)  // Right arrow
+	if (keycode == 65363)
 		data->map->player->rotating_right = 0;
 	return (0);
 }

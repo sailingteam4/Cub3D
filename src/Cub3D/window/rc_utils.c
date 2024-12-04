@@ -6,11 +6,11 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:13:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 16:18:10 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/04 17:27:24 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	init_step_distances(t_ray_casting *rc)
 {

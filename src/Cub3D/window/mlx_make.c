@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:00:31 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/02 15:06:35 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/04 16:41:34 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static void	texture_load(t_data *data, t_texture **img, char *path)
 	int	endian;
 
 	if (!path || !data || !data->mlx)
-        return;
-
+		return ;
 	(*img) = malloc(sizeof(t_texture));
 	if (!(*img))
 		return ;
@@ -37,14 +36,15 @@ static void	texture_load(t_data *data, t_texture **img, char *path)
 	}
 	(*img)->width = width;
 	(*img)->height = height;
-	(*img)->addr = mlx_get_data_addr((*img)->img, &bpp, &(*img)->line_length, &endian);
+	(*img)->addr = \
+		mlx_get_data_addr((*img)->img, &bpp, &(*img)->line_length, &endian);
 	if (!(*img)->addr)
 	{
 		mlx_destroy_image(data->mlx, (*img)->img);
 		free(*img);
 		*img = NULL;
 		printf("Error: Failed to get texture data address: %s\n", path);
-		return;
+		return ;
 	}
 	printf("Texture loaded successfully: %s (%dx%d)\n", path, width, height);
 }

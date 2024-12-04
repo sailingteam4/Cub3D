@@ -6,13 +6,14 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/03 22:26:09 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/04 17:32:34 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-static void	draw_ceiling_floor(t_data *data, int x, int wall_start, int wall_end)
+static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
+	int wall_end)
 {
 	int	y;
 
@@ -20,16 +21,16 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, int wall_end
 	while (y < wall_start && y < data->img->height)
 	{
 		if (y >= 0)
-			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, data->textures->C_R,
-					data->textures->C_G, data->textures->C_B));
+			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, \
+			data->textures->C_R, data->textures->C_G, data->textures->C_B));
 		y++;
 	}
 	y = wall_end;
 	while (y < data->img->height)
 	{
 		if (y >= 0)
-			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, data->textures->F_R,
-					data->textures->F_G, data->textures->F_B));
+			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, \
+			data->textures->F_R, data->textures->F_G, data->textures->F_B));
 		y++;
 	}
 }
@@ -41,6 +42,7 @@ static void	draw_wall_texture(t_data *data, t_draw_params *params)
 	float		tex_y_float;
 	int			tex_y;
 	t_texture	*texture;
+	unsigned char *pixel;
 
 	texture = data->map->textures[params->texture_index];
 	y = params->wall_start;
@@ -54,7 +56,7 @@ static void	draw_wall_texture(t_data *data, t_draw_params *params)
 			if (params->tex_x_int >= 0 && params->tex_x_int < texture->width
 				&& tex_y >= 0 && tex_y < texture->height)
 			{
-				unsigned char *pixel = (unsigned char *)texture->addr
+				pixel = (unsigned char *)texture->addr
 					+ (tex_y * texture->line_length + params->tex_x_int * 4);
 				mlx_draw_pixel(data->img, params->x, y, *(unsigned int *)pixel);
 			}
