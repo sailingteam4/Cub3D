@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 17:43:21 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:24:09 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 
 static void	draw_wall_texture(t_data *data, t_draw_params *params)
 {
-	int			y;
-	float		wall_y;
-	float		tex_y_float;
-	int			tex_y;
-	t_texture	*texture;
-	unsigned char *pixel;
+	int				y;
+	float			wall_y;
+	float			tex_y_float;
+	int				tex_y;
+	t_texture		*texture;
+	unsigned char	*pixel;
 
 	texture = data->map->textures[params->texture_index];
 	y = params->wall_start;
