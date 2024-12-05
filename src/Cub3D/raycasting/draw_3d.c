@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 14:24:09 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:39:30 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 	}
 }
 
-static void	draw_wall_texture(t_data *data, t_draw_params *params)
+static void	draw_wall_texture(t_data *data, t_draw_params *params, \
+	t_texture *texture)
 {
 	int				y;
 	float			wall_y;
 	float			tex_y_float;
 	int				tex_y;
-	t_texture		*texture;
 	unsigned char	*pixel;
 
 	texture = data->map->textures[params->texture_index];
@@ -66,11 +66,15 @@ static void	draw_wall_texture(t_data *data, t_draw_params *params)
 }
 
 static void	draw_vertical_line(t_data *data, int x, float wall_height,
-		float tex_x, int texture_index)
+		t_ray_casting *rc)
 {
 	t_draw_params	params;
 	t_texture		*texture;
+	float			tex_x;
+	int				texture_index;
 
+	tex_x = rc->tex_x;
+	texture_index = rc->texture_index;
 	if (!data || !data->img || x < 0 || x >= data->img->width)
 		return ;
 	params.x = x;
@@ -86,7 +90,7 @@ static void	draw_vertical_line(t_data *data, int x, float wall_height,
 	}
 	params.tex_x_int = (int)(tex_x * (texture->width - 1));
 	draw_ceiling_floor(data, x, params.wall_start, params.wall_end);
-	draw_wall_texture(data, &params);
+	draw_wall_texture(data, &params, texture);
 }
 
 static void	init_ray_casting(t_ray_casting *rc, t_data *data, int x)
@@ -142,7 +146,7 @@ void	render_3d_view(t_data *data)
 		init_ray_casting(&rc, data, x);
 		perform_dda(&rc, data);
 		calculate_wall_properties(&rc, data);
-		draw_vertical_line(data, x, rc.wall_height, rc.tex_x, rc.texture_index);
+		draw_vertical_line(data, x, rc.wall_height, &rc);
 		x++;
 	}
 }

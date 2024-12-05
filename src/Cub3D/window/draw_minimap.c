@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 17:43:43 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:34:30 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ float	get_distance_to_wall(t_data *data, float x, float y, float angle)
 }
 
 static void	draw_tile_border(t_data *data, int x, int y, \
-		int size_modifier, int border_size)
+		int size_modifier)
 {
 	int	i;
 	int	j;
+	int	border_size;
 
 	i = 0;
+	border_size = 1;
 	while (i < size_modifier)
 	{
 		j = 0;
@@ -125,7 +127,7 @@ static void	draw_player(t_data *data, int x, int y, int size_modifier)
 
 void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
 {
-	draw_tile_border(data, x, y, size_modifier, 1);
+	draw_tile_border(data, x, y, size_modifier);
 	draw_tile_content(data, x, y, size_modifier);
 	if (x == (int)data->map->player->current_position->y && \
 		y == (int)data->map->player->current_position->x)

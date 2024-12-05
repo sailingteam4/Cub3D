@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:00:31 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 16:41:34 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:31:08 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	texture_load(t_data *data, t_texture **img, char *path)
 	int	bpp;
 	int	endian;
 
-	if (!path || !data || !data->mlx)
-		return ;
 	(*img) = malloc(sizeof(t_texture));
 	if (!(*img))
 		return ;
@@ -30,8 +28,6 @@ static void	texture_load(t_data *data, t_texture **img, char *path)
 	if ((*img)->img == NULL)
 	{
 		free(*img);
-		*img = NULL;
-		printf("Error: Failed to load texture: %s\n", path);
 		return ;
 	}
 	(*img)->width = width;
@@ -42,11 +38,8 @@ static void	texture_load(t_data *data, t_texture **img, char *path)
 	{
 		mlx_destroy_image(data->mlx, (*img)->img);
 		free(*img);
-		*img = NULL;
-		printf("Error: Failed to get texture data address: %s\n", path);
 		return ;
 	}
-	printf("Texture loaded successfully: %s (%dx%d)\n", path, width, height);
 }
 
 int	open_textures(t_data *data)
