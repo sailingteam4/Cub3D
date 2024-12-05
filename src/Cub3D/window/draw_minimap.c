@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/02 15:06:32 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:43:21 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ float get_distance_to_wall(t_data *data, float x, float y, float angle)
         ray_x += dir_x * step;
         ray_y += dir_y * step;
     }
-    return sqrt((ray_x - x) * (ray_x - x) + (ray_y - y) * (ray_y - y));
+	float return_value = sqrt((ray_x - x) * (ray_x - x) + (ray_y - y) * (ray_y - y));
+	printf("distance : %f\n", return_value);
+    return return_value;
 }
 
 void	draw_minimap_tile(t_data *data, int x, int y, int size_modifier)
