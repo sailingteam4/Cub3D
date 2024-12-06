@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:01:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/24 06:04:04 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 19:11:38 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,13 @@ void			draw_minimap_tile(t_data *data, int x, int y, int size_modifier);
 // mlx_make.c
 int				make_the_window(t_data *data);
 int				update_minimap(t_data *data, int size_modifier);
+
+// handle_movement.c
+void			handle_forward_movement(t_data *data, t_player *player, float speed);
+void			handle_backward_movement(t_data *data, t_player *player, float speed);
+void			handle_side_movement(t_data *data, t_player *player, float speed, int direction);
+void	        handle_rotation(t_player *player, float speed, int direction);
+
+// draw_player.c
+void			draw_player_glow(t_data *data, float px, float py, int radius);
+void			draw_player(t_data *data, int x, int y, int size_modifier);

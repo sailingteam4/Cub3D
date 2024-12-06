@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:13:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/04 17:27:24 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 18:39:22 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,19 @@ void	draw_simple_wall(t_data *data, int x, int wall_start, int wall_end)
 			mlx_draw_pixel(data->img, x, y, wall_color);
 		y++;
 	}
+}
+
+void	init_ray_casting(t_ray_casting *rc, t_data *data, int x)
+{
+	rc->ray_angle = data->map->player->rotation - (rc->fov / 2)
+		+ (x * rc->angle_step);
+	rc->ray_x = data->map->player->current_position->y;
+	rc->ray_y = data->map->player->current_position->x;
+	rc->dir_x = cos(-rc->ray_angle);
+	rc->dir_y = sin(-rc->ray_angle);
+	rc->delta_dist_x = fabs(1.0f / rc->dir_x);
+	rc->delta_dist_y = fabs(1.0f / rc->dir_y);
+	rc->map_x = (int)rc->ray_x;
+	rc->map_y = (int)rc->ray_y;
+	init_step_distances(rc);
 }

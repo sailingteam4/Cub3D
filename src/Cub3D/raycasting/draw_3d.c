@@ -6,11 +6,13 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 17:39:30 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/05 18:39:31 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+void	init_ray_casting(t_ray_casting *rc, t_data *data, int x);
 
 static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 	int wall_end)
@@ -91,21 +93,6 @@ static void	draw_vertical_line(t_data *data, int x, float wall_height,
 	params.tex_x_int = (int)(tex_x * (texture->width - 1));
 	draw_ceiling_floor(data, x, params.wall_start, params.wall_end);
 	draw_wall_texture(data, &params, texture);
-}
-
-static void	init_ray_casting(t_ray_casting *rc, t_data *data, int x)
-{
-	rc->ray_angle = data->map->player->rotation - (rc->fov / 2)
-		+ (x * rc->angle_step);
-	rc->ray_x = data->map->player->current_position->y;
-	rc->ray_y = data->map->player->current_position->x;
-	rc->dir_x = cos(-rc->ray_angle);
-	rc->dir_y = sin(-rc->ray_angle);
-	rc->delta_dist_x = fabs(1.0f / rc->dir_x);
-	rc->delta_dist_y = fabs(1.0f / rc->dir_y);
-	rc->map_x = (int)rc->ray_x;
-	rc->map_y = (int)rc->ray_y;
-	init_step_distances(rc);
 }
 
 static void	perform_dda(t_ray_casting *rc, t_data *data)
