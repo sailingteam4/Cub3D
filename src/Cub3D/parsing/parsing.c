@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/03 16:40:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/09 16:55:33 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_check_map(t_data *data)
 	}
 	if (!check_map_lines(data->map))
 	{
-		printf("Error\nInvalid map\n");
+		printf("Error\nInvalid character\n");
 		return (0);
 	}
 	if (!check_map_content(data->map->map_2d))
