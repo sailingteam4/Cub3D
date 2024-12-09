@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:47:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/09 16:17:15 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/09 17:01:52 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	free_text_tab(t_data *data)
 void	ft_free_data(t_data *data)
 {
 	if (!data)
-		return;
+		return ;
 	free_text_tab(data);
 	if (data->mlx)
 	{

@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:49:39 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/09 16:49:49 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/09 17:01:39 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ int	is_color_ok(t_textures *textures)
 	int	color_exist;
 	int	rgb_valid;
 
-	color_exist = textures->F_R == -1 || textures->F_G == -1 || textures->F_B == -1
-		|| textures->C_R == -1 || textures->C_G == -1 || textures->C_B == -1;
-	rgb_valid = textures->F_R < 0 || textures->F_R > 255 || textures->F_G < 0 || textures->F_G > 255
-		|| textures->F_B < 0 || textures->F_B > 255 || textures->C_R < 0 || textures->C_R > 255
-		|| textures->C_G < 0 || textures->C_G > 255 || textures->C_B < 0 || textures->C_B > 255;
-
+	color_exist = textures->F_R == -1 || textures->F_G == -1 || \
+	textures->F_B == -1 || textures->C_R == -1 || \
+	textures->C_G == -1 || textures->C_B == -1;
+	rgb_valid = textures->F_R < 0 || textures->F_R > 255 || textures->F_G < 0 \
+	|| textures->F_G > 255 || textures->F_B < 0 || textures->F_B > 255 || \
+	textures->C_R < 0 || textures->C_R > 255 || textures->C_G < 0 \
+	|| textures->C_G > 255 || textures->C_B < 0 || textures->C_B > 255;
 	return (color_exist || rgb_valid);
 }
 
