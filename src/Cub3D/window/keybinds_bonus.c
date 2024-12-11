@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keybinds.c                                         :+:      :+:    :+:   */
+/*   keybinds_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 18:29:28 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/11 18:11:14 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->rotating_left = 1;
 	if (keycode == 65363)
 		data->map->player->rotating_right = 1;
+	if (keycode == 109)
+	{
+		data->map->minimap_display = !data->map->minimap_display;
+		update_minimap(data, HEIGHT / 80);
+	}
 	return (0);
 }
 

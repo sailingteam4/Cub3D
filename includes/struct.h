@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 14:14:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 14:15:57 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/11 18:06:29 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_draw_params {
 
 typedef struct s_map
 {
-	char				**map;
 	char				**map_2d;
 	int					map_height;
 	int					map_width;
