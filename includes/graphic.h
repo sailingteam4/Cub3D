@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:01:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 19:11:38 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/11 14:13:50 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,9 @@ void	        handle_rotation(t_player *player, float speed, int direction);
 // draw_player.c
 void			draw_player_glow(t_data *data, float px, float py, int radius);
 void			draw_player(t_data *data, int x, int y, int size_modifier);
+
+// rc_utils.c
+void            init_step_distances(t_ray_casting *rc);
+void            calculate_wall_properties(t_ray_casting *rc, t_data *data);
+void            draw_simple_wall(t_data *data, int x, int wall_start, int wall_end);
+int             get_texture_index(t_ray_casting *rc);
