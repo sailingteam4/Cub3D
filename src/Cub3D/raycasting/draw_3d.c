@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 01:17:26 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 01:47:46 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	render_3d_view(t_data *data)
 
 	rc.fov = M_PI / 3;
 	rc.angle_step = rc.fov / data->img->width;
+	rc.side = 0;
 	x = 0;
 	while (x < data->img->width)
 	{
