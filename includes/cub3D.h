@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 14:16:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/11 22:56:36 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include "parsing.h"
 # include "graphic.h"
 
-# define CUBE_SIZE 64
+# define CUBE_SIZE 1
 # define M_PI 3.14159265358979323846
+# define RAD 0.0174533
 
 # define TEXTURE_NO 0
 # define TEXTURE_SO 1
