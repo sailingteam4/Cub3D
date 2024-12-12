@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 06:02:59 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 01:20:57 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 01:21:53 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	render_3d_view(t_data *data);
 int	update_minimap(t_data *data, int size_modifier)
 {
 	render_3d_view(data);
-	mlx_clear_window(data->mlx, data->mlx_win);
 	if (data->map->minimap_display)
 	{
 		put_minimap(data, size_modifier);
