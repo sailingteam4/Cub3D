@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:51:55 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:20:03 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:41:05 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	is_valid_texture(t_textures *textures)
 {
-	int	file_ok;
+	int	is_valid;
 	int	ext_ok;
 
-	file_ok = textures->NO_file && textures->SO_file && textures->WE_file \
+	is_valid = textures->NO_file && textures->SO_file && textures->WE_file \
 		&& textures->EA_file && textures->F_ok && textures->C_ok;
-	ext_ok = is_valid_ext(textures->NO_file) && \
-		is_valid_ext(textures->SO_file) && \
-		is_valid_ext(textures->WE_file) && \
-		is_valid_ext(textures->EA_file);
-	return (file_ok && ext_ok);
+	ext_ok = is_valid_ext(textures->NO_file, ".xpm") && \
+		is_valid_ext(textures->SO_file, ".xpm") && \
+		is_valid_ext(textures->WE_file, ".xpm") && \
+		is_valid_ext(textures->EA_file, ".xpm");
+	return (is_valid && ext_ok);
 }
 
 int	ft_is_player_char(char c)

@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:21:29 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:38:19 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_check_file(char *filename, int ac, t_data *data)
 		printf("Error\nInvalid number of arguments\n");
 		return (0);
 	}
-	if (!is_valid_ext(filename))
+	if (!is_valid_ext(filename, ".cub"))
 	{
 		printf("Error\nInvalid file name or extension\n");
 		return (0);

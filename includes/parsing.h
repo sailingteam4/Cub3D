@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:17:00 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:17:49 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:39:28 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_free_data(t_data *data);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_isnumeric(char *str);
 void	ft_copy(char *src, char *dst);
-int		is_valid_ext(char *filename);
+int		is_valid_ext(char *filename, char *ext);
 
 // is_valid.c
 int		is_valid_texture(t_textures *textures);
