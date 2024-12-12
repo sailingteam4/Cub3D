@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:38:19 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 22:21:47 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,30 @@ static int	ft_parsing_map(int fd, t_data *data, int *n_line)
 
 static int	ft_check_map(t_data *data)
 {
-	if (!data->map->is_player)
+	if (data->map)
 	{
-		printf("Error\nNo player position found\n");
+		if (!data->map->is_player)
+		{
+			printf("Error\nNo player position found\n");
+			return (0);
+		}
+		if (!check_map_lines(data->map))
+		{
+			printf("Error\nInvalid character\n");
+			return (0);
+		}
+		if (!check_map_content(data->map->map_2d))
+		{
+			printf("Error\nInvalid map\n");
+			return (0);
+		}
+	}
+	else
+	{
+		printf("Error\nNo map found\n");
 		return (0);
 	}
-	if (!check_map_lines(data->map))
-	{
-		printf("Error\nInvalid character\n");
-		return (0);
-	}
-	if (!check_map_content(data->map->map_2d))
-	{
-		printf("Error\nInvalid map\n");
-		return (0);
-	}
+	printf("Map is valid\n");
 	return (1);
 }
 
@@ -77,7 +86,10 @@ static int	ft_get_content(int fd, t_data *data, char *filename)
 		return (0);
 	}
 	if (!ft_parsing_map(fd, data, &n_line))
+	{
+		printf("Map skill issue\n");
 		return (0);
+	}
 	if (!ft_check_map(data))
 		return (0);
 	data->map->map_width = (int)get_max_line(data->map->map_2d);
