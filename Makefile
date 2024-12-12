@@ -2,7 +2,7 @@ NAME = cub3D
 NAME_BONUS = cub3D_bonus
 
 CLANG = gcc
-CFLAGS = -Wall -Wextra -Werror -g -O3
+CFLAGS = -Wall -Wextra -Werror -g -O3 -fopenmp -march=native
 
 LIBFT = src/libft
 LIBFT_LIB = $(LIBFT)/libft.a
