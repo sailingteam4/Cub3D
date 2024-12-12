@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 14:14:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 18:06:29 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/11 22:57:18 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ typedef struct s_draw_params {
 	float	wall_end;
 	int		texture_index;
 	int		tex_x_int;
+	float   step;
+    float   tex_pos;
+    int     img_height;
 }	t_draw_params;
 
 typedef struct s_map

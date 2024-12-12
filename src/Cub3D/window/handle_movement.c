@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 18:46:33 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 18:46:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 00:53:23 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	handle_forward_movement(t_data *data, t_player *player, float speed)
 
 	new_x = player->current_position->x - player->delta_y * speed;
 	new_y = player->current_position->y + player->delta_x * speed;
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
-	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	if (!check_collision(data, new_x, new_y))
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;
@@ -35,8 +34,7 @@ void	handle_backward_movement(t_data *data, t_player *player, \
 
 	new_x = player->current_position->x + player->delta_y * speed;
 	new_y = player->current_position->y - player->delta_x * speed;
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
-	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	if (!check_collision(data, new_x, new_y))
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;
@@ -55,8 +53,7 @@ void	handle_side_movement(t_data *data, t_player *player, float speed,
 	delta_y_3d = sin(player->rotation) * 5;
 	new_x = player->current_position->x + (direction * -delta_x_3d * speed);
 	new_y = player->current_position->y + (direction * -delta_y_3d * speed);
-	if (data->map->map_2d[(int)player->current_position->x][(int)new_y] != '1' \
-	&& data->map->map_2d[(int)new_x][(int)player->current_position->y] != '1')
+	if (!check_collision(data, new_x, new_y))
 	{
 		player->current_position->x = new_x;
 		player->current_position->y = new_y;

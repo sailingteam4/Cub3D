@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 18:39:31 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 00:59:21 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,31 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 	}
 }
 
-static void	draw_wall_texture(t_data *data, t_draw_params *params, \
-	t_texture *texture)
+static void	draw_wall_texture(t_data *data, t_draw_params *params,
+		t_texture *texture)
 {
 	int				y;
-	float			wall_y;
-	float			tex_y_float;
-	int				tex_y;
+	float			tex_pos;
+	float			step;
+	float			original_height;
 	unsigned char	*pixel;
 
-	texture = data->map->textures[params->texture_index];
-	y = params->wall_start;
+	adjust_wall_height(params, data, &original_height);
+	step = (float)texture->height / original_height;
+	tex_pos = (params->wall_start - (data->img->height - original_height) \
+		/ 2.0f) * step;
+	y = (int)params->wall_start;
 	while (y < params->wall_end && y < data->img->height)
 	{
-		if (y >= 0)
+		if (y >= 0 && params->tex_x_int >= 0 && params->tex_x_int < \
+			texture->width)
 		{
-			wall_y = (y - params->wall_start) / params->wall_height;
-			tex_y_float = wall_y * texture->height;
-			tex_y = fmax(0, fmin((int)tex_y_float, texture->height - 1));
-			if (params->tex_x_int >= 0 && params->tex_x_int < texture->width
-				&& tex_y >= 0 && tex_y < texture->height)
-			{
-				pixel = (unsigned char *)texture->addr
-					+ (tex_y * texture->line_length + params->tex_x_int * 4);
-				mlx_draw_pixel(data->img, params->x, y, *(unsigned int *)pixel);
-			}
+			pixel = (unsigned char *)texture->addr + (get_texture_y(tex_pos,
+						texture->height) * texture->line_length
+					+ params->tex_x_int * 4);
+			mlx_draw_pixel(data->img, params->x, y, *(unsigned int *)pixel);
 		}
+		tex_pos += step;
 		y++;
 	}
 }
