@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/09 16:55:33 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:21:29 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static int	ft_get_content(int fd, t_data *data, char *filename)
 	if (!ft_init_textures(data))
 		return (0);
 	if (!ft_parsing_texture(fd, data, &n_line))
+	{
+		printf("Error\nInvalid texture\n");
 		return (0);
+	}
 	if (!ft_parsing_map(fd, data, &n_line))
 		return (0);
 	if (!ft_check_map(data))
@@ -90,8 +93,7 @@ int	ft_check_file(char *filename, int ac, t_data *data)
 		printf("Error\nInvalid number of arguments\n");
 		return (0);
 	}
-	if ((!filename || ft_strlen(filename) < 4) || \
-		(ft_strcmp(filename + ft_strlen(filename) - 4, ".cub")))
+	if (!is_valid_ext(filename))
 	{
 		printf("Error\nInvalid file name or extension\n");
 		return (0);

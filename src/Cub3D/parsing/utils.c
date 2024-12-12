@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:24:03 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:22:13 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:17:46 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,12 @@ void	ft_copy(char *src, char *dst)
 {
 	while (src && *src)
 		*dst++ = *src++;
+}
+
+int	is_valid_ext(char *filename)
+{
+	if ((!filename || ft_strlen(filename) < 4) || \
+		(ft_strcmp(filename + ft_strlen(filename) - 4, ".cub")))
+		return (0);
+	return (1);
 }
