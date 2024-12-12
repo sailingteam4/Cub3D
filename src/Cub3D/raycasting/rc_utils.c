@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:13:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/05 18:39:22 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 01:02:08 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,9 @@ void	calculate_wall_properties(t_ray_casting *rc, t_data *data)
 	float	wall_x;
 	float	angle_diff;
 
-	if (rc->side == 0)
-		perp_wall_dist = (rc->map_x - rc->ray_x + (1 - rc->step_x) / 2)
-			/ rc->dir_x;
-	else
-		perp_wall_dist = (rc->map_y - rc->ray_y + (1 - rc->step_y) / 2)
-			/ rc->dir_y;
-	angle_diff = rc->ray_angle - data->map->player->rotation;
-	while (angle_diff > M_PI)
-		angle_diff -= 2 * M_PI;
-	while (angle_diff < -M_PI)
-		angle_diff += 2 * M_PI;
+	perp_wall_dist = calculate_wall_distance(rc);
+	angle_diff = normalize_angle_diff(rc->ray_angle - \
+		data->map->player->rotation);
 	rc->wall_height = (data->img->height / (perp_wall_dist * cos(angle_diff)))
 		* 0.75;
 	if (rc->side == 0)

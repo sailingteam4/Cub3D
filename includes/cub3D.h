@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 14:16:55 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 00:41:40 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define CUBE_SIZE 64
 # define M_PI 3.14159265358979323846
+# define COLLISION_BUFFER 0.1f
 
 # define TEXTURE_NO 0
 # define TEXTURE_SO 1

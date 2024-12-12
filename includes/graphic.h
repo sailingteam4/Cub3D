@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:01:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/11 17:18:50 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/12 01:02:38 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,22 @@ void			draw_minimap_tile(t_data *data, int x, int y, int size_modifier);
 int				make_the_window(t_data *data);
 int				update_minimap(t_data *data, int size_modifier);
 
+// handle_collision.c
+void            allocate_check_point(int check_points[4][2], float x, float y);
+int             check_collision(t_data *data, float x, float y);
+
 // handle_movement.c
 void			handle_forward_movement(t_data *data, t_player *player, float speed);
 void			handle_backward_movement(t_data *data, t_player *player, float speed);
 void			handle_side_movement(t_data *data, t_player *player, float speed, int direction);
 void	        handle_rotation(t_player *player, float speed, int direction);
+
+// draw_utils.c
+void			adjust_wall_height(t_draw_params *params, t_data *data,
+					float *original_height);
+int				get_texture_y(float tex_pos, int texture_height);
+float			calculate_wall_distance(t_ray_casting *rc);
+float			normalize_angle_diff(float angle_diff);
 
 // draw_player.c
 void			draw_player_glow(t_data *data, float px, float py, int radius);
