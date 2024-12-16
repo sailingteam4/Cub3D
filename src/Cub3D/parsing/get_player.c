@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:11:50 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 00:07:54 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:13:52 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_vector	*ft_set_player_pos(int x, int y, char rot, t_player *player)
 	else if (rot == 'S')
 		player->rotation = 3 * M_PI / 2;
 	else if (rot == 'W')
-		player->rotation = 0;
-	else if (rot == 'E')
 		player->rotation = M_PI;
+	else if (rot == 'E')
+		player->rotation = 0;
 	player->delta_x = cos(player->rotation) * 5;
 	player->delta_y = sin(player->rotation) * 5;
 	return (player->current_position);

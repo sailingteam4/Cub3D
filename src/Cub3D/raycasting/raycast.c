@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:44:43 by tpipi             #+#    #+#             */
-/*   Updated: 2024/12/16 22:11:47 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/16 23:27:54 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	find_wall(t_raycast *rc, float x, float y, t_map *map)
 		}
 	}
 }
-
+#include <stdio.h>
+#include <float.h>
 t_raycast ft_raycaster(t_map *map, t_player *player, float angle)
 {
 	t_raycast	rc;
@@ -88,21 +89,31 @@ t_raycast ft_raycaster(t_map *map, t_player *player, float angle)
 
 	x = player->current_position->y;
 	y = player->current_position->x;
+	rc.wall_x = 0;
+	rc.wall_y = 0;
+	rc.dist = FLT_MAX;
 	get_horizontal_value(&rc, angle, x, y);
 	find_wall(&rc, x, y, map);
-	rc.wall_x = (int)rc.nearest_x;
-	rc.wall_y = (int)rc.nearest_y;
-	rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
+	if (rc.nearest_x != x && rc.nearest_y != y)
+	{
+		rc.wall_x = (int)rc.nearest_x;
+		rc.wall_y = (int)rc.nearest_y;
+		rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
+	}
 	get_vertical_value(&rc, angle, x, y);
 	find_wall(&rc, x, y, map);
-	if (sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y)) != 0)
+	if (rc.nearest_x != x && rc.nearest_y != y)
 	{
-		if (sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y)) < rc.dist)
-		{
-			rc.wall_x = (int)rc.nearest_x;
-			rc.wall_y = (int)rc.nearest_y;
-			rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
-		}
+		rc.wall_x = (int)rc.nearest_x;
+		rc.wall_y = (int)rc.nearest_y;
+		rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
 	}
+	if (sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y)) < rc.dist)
+	{
+		rc.wall_x = (int)rc.nearest_x;
+		rc.wall_y = (int)rc.nearest_y;
+		rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
+	}
+	ft_printf("x y wall %d %d\n", rc.wall_x, rc.wall_y);
     return (rc);
 }
