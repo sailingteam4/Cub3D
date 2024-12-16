@@ -6,12 +6,12 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:01:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 23:11:50 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/16 23:36:40 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define HEIGHT 1080
-#define WIDTH 1920
+#define HEIGHT 720
+#define WIDTH 1040
 
 // keybinds.c
 void			exit_mlx(t_data *data);

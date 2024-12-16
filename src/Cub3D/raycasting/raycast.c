@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:44:43 by tpipi             #+#    #+#             */
-/*   Updated: 2024/12/16 23:58:27 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/17 00:30:20 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	get_horizontal_value(t_raycast *rc, float angle, float x, float y)
 		rc->nearest_y = ((int)y/CUBE_SIZE)*CUBE_SIZE;
 		rc->nearest_x = (y - rc->nearest_y) / tan(angle) + x;
 		rc->offset_y = -CUBE_SIZE;
-		rc->offset_x = -rc->offset_y * -1/tan(angle);
+		rc->offset_x = rc->offset_y * -1/tan(angle);
 	}
 	else if (angle > 180 * RAD && angle < 360 * RAD) {
 		rc->nearest_y = ((int)y/CUBE_SIZE)*CUBE_SIZE+CUBE_SIZE;
 		rc->nearest_x = (y - rc->nearest_y) / tan(angle) + x;
 		rc->offset_y = CUBE_SIZE;
-		rc->offset_x = -rc->offset_y * -1/tan(angle);
+		rc->offset_x = rc->offset_y * -1/tan(angle);
 	}
 	else {
 		rc->nearest_y = 2147483647;
@@ -94,15 +94,16 @@ t_raycast ft_raycaster(t_map *map, t_player *player, float angle)
 	rc.wall_x = (int)rc.nearest_x;
 	rc.wall_y = (int)rc.nearest_y;
 	rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
-	printf("Horizontal Wall Values x:%d y:%d\n", rc.wall_x, rc.wall_y);
+	printf("Horizontal Values x:%d y:%d\n", (int)rc.nearest_x, (int)rc.nearest_y);
 	get_vertical_value(&rc, angle, x, y);
 	find_wall(&rc, map);
-	printf("Vertical Wall Values x:%d y:%d\n", (int)rc.nearest_x, (int)rc.nearest_y);
+	printf("Vertical Values x:%d y:%d\n", (int)rc.nearest_x, (int)rc.nearest_y);
 	if (sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y)) < rc.dist)
 	{
 		rc.wall_x = (int)rc.nearest_x;
 		rc.wall_y = (int)rc.nearest_y;
 		rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
 	}
+	printf("Wall Values x:%d y:%d\n", rc.wall_x, rc.wall_y);
     return (rc);
 }

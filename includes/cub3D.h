@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:42:52 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 20:46:46 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/16 23:49:06 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <math.h>
+# include <float.h>
 # include <stdio.h>
 # include <stdbool.h>
 # include <fcntl.h>
