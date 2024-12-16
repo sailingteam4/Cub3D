@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 11:32:34 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/16 19:16:55 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,11 @@ void	render_3d_view(t_data *data)
 		perform_dda(&rc, data);
 		calculate_wall_properties(&rc, data);
 		draw_vertical_line(data, x, rc.wall_height, &rc);
+		// Only print for center ray
+		if (x == data->img->width / 2) {
+			printf("Wall hit at coordinates: x=%d, y=%d (side=%d)\n", 
+				rc.map_x, rc.map_y, rc.side);
+		}
 		x--;
 	}
 }
