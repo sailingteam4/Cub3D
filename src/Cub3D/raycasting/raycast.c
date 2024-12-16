@@ -6,7 +6,7 @@
 /*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:44:43 by tpipi             #+#    #+#             */
-/*   Updated: 2024/12/16 22:07:39 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/16 22:11:47 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	find_wall(t_raycast *rc, float x, float y, t_map *map)
 	}
 }
 
-int ft_raycaster(t_map *map, t_player *player, float angle)
+t_raycast ft_raycaster(t_map *map, t_player *player, float angle)
 {
 	t_raycast	rc;
 	float		x;
@@ -104,5 +104,5 @@ int ft_raycaster(t_map *map, t_player *player, float angle)
 			rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
 		}
 	}
-    return (0);
+    return (rc);
 }
