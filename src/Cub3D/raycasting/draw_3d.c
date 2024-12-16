@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 01:47:46 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/16 11:32:34 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,13 @@ void	render_3d_view(t_data *data)
 	rc.fov = M_PI / 3;
 	rc.angle_step = rc.fov / data->img->width;
 	rc.side = 0;
-	x = 0;
-	while (x < data->img->width)
+	x = data->img->width - 1;
+	while (x >= 0)
 	{
-		init_ray_casting(&rc, data, x);
+		init_ray_casting(&rc, data, data->img->width - 1 - x);
 		perform_dda(&rc, data);
 		calculate_wall_properties(&rc, data);
 		draw_vertical_line(data, x, rc.wall_height, &rc);
-		x++;
+		x--;
 	}
 }

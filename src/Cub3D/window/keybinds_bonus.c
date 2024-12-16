@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 01:15:21 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/16 11:33:45 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	key_press(int keycode, t_data *data)
 		data->map->player->moving_forward = 1;
 	if (keycode == 115)
 		data->map->player->moving_backward = 1;
-	if (keycode == 97)
-		data->map->player->moving_left = 1;
 	if (keycode == 100)
+		data->map->player->moving_left = 1;
+	if (keycode == 97)
 		data->map->player->moving_right = 1;
-	if (keycode == 65361)
-		data->map->player->rotating_left = 1;
 	if (keycode == 65363)
+		data->map->player->rotating_left = 1;
+	if (keycode == 65361)
 		data->map->player->rotating_right = 1;
 	if (keycode == 109)
 	{
@@ -75,13 +75,13 @@ int	key_release(int keycode, t_data *data)
 		data->map->player->moving_forward = 0;
 	if (keycode == 115)
 		data->map->player->moving_backward = 0;
-	if (keycode == 97)
-		data->map->player->moving_left = 0;
 	if (keycode == 100)
+		data->map->player->moving_left = 0;
+	if (keycode == 97)
 		data->map->player->moving_right = 0;
-	if (keycode == 65361)
-		data->map->player->rotating_left = 0;
 	if (keycode == 65363)
+		data->map->player->rotating_left = 0;
+	if (keycode == 65361)
 		data->map->player->rotating_right = 0;
 	return (0);
 }
