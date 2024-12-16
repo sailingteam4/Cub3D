@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:13:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 00:05:30 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:38:01 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int	get_texture_index(t_ray_casting *rc)
 	if (rc->side == 0)
 	{
 		if (rc->dir_x > 0)
-			return (TEXTURE_EA);
-		return (TEXTURE_WE);
+			return (TEXTURE_WE);
+		return (TEXTURE_EA);
 	}
 	if (rc->dir_y > 0)
-		return (TEXTURE_SO);
-	return (TEXTURE_NO);
+		return (TEXTURE_NO);
+	return (TEXTURE_SO);
 }
 
 void	draw_simple_wall(t_data *data, int x, int wall_start, int wall_end)

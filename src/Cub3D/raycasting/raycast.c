@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:44:43 by tpipi             #+#    #+#             */
-/*   Updated: 2024/12/16 23:27:54 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/16 23:36:28 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ t_raycast ft_raycaster(t_map *map, t_player *player, float angle)
 		rc.wall_y = (int)rc.nearest_y;
 		rc.dist = sqrt((rc.nearest_x-x)*(rc.nearest_x-x)+(rc.nearest_y-y)*(rc.nearest_y-y));
 	}
-	ft_printf("x y wall %d %d\n", rc.wall_x, rc.wall_y);
     return (rc);
 }
