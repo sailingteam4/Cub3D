@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:51:55 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:41:05 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:28:50 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	is_valid_texture(t_textures *textures)
 	int	is_valid;
 	int	ext_ok;
 
-	is_valid = textures->NO_file && textures->SO_file && textures->WE_file \
-		&& textures->EA_file && textures->F_ok && textures->C_ok;
-	ext_ok = is_valid_ext(textures->NO_file, ".xpm") && \
-		is_valid_ext(textures->SO_file, ".xpm") && \
-		is_valid_ext(textures->WE_file, ".xpm") && \
-		is_valid_ext(textures->EA_file, ".xpm");
+	is_valid = textures->no_file && textures->so_file && textures->we_file \
+		&& textures->ea_file && textures->f_ok && textures->c_ok;
+	ext_ok = is_valid_ext(textures->no_file, ".xpm") && \
+		is_valid_ext(textures->so_file, ".xpm") && \
+		is_valid_ext(textures->we_file, ".xpm") && \
+		is_valid_ext(textures->ea_file, ".xpm");
 	return (is_valid && ext_ok);
 }
 

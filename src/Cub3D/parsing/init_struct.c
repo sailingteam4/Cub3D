@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:44:50 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/09 16:17:00 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:28:50 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ int	ft_init_textures(t_data *data)
 	data->textures = malloc(sizeof(t_textures));
 	if (!data->textures)
 		return (0);
-	data->textures->NO_file = NULL;
-	data->textures->SO_file = NULL;
-	data->textures->WE_file = NULL;
-	data->textures->EA_file = NULL;
-	data->textures->F_ok = 0;
-	data->textures->C_ok = 0;
-	data->textures->F_R = -1;
-	data->textures->F_G = -1;
-	data->textures->F_B = -1;
-	data->textures->C_R = -1;
-	data->textures->C_G = -1;
-	data->textures->C_B = -1;
+	data->textures->no_file = NULL;
+	data->textures->so_file = NULL;
+	data->textures->we_file = NULL;
+	data->textures->ea_file = NULL;
+	data->textures->f_ok = 0;
+	data->textures->c_ok = 0;
+	data->textures->f_r = -1;
+	data->textures->f_g = -1;
+	data->textures->f_b = -1;
+	data->textures->c_r = -1;
+	data->textures->c_g = -1;
+	data->textures->c_b = -1;
 	return (1);
 }
 

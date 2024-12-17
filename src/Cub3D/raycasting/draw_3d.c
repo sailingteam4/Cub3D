@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 22:53:26 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 19:32:19 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:28:29 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 	{
 		if (y >= 0)
 			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, \
-			data->textures->C_R, data->textures->C_G, data->textures->C_B));
+			data->textures->c_r, data->textures->c_g, data->textures->c_b));
 		y++;
 	}
 	y = wall_end;
@@ -32,7 +32,7 @@ static void	draw_ceiling_floor(t_data *data, int x, int wall_start, \
 	{
 		if (y >= 0)
 			mlx_draw_pixel(data->img, x, y, mlx_rgb_to_int(0, \
-			data->textures->F_R, data->textures->F_G, data->textures->F_B));
+			data->textures->f_r, data->textures->f_g, data->textures->f_b));
 		y++;
 	}
 }

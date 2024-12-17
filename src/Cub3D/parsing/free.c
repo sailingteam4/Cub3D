@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 05:47:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/09 17:01:52 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:27:03 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	free_tab(char **tab)
 
 static void	ft_free_texture(t_textures *textures)
 {
-	if (textures->NO_file)
-		free(textures->NO_file);
-	if (textures->SO_file)
-		free(textures->SO_file);
-	if (textures->WE_file)
-		free(textures->WE_file);
-	if (textures->EA_file)
-		free(textures->EA_file);
+	if (textures->no_file)
+		free(textures->no_file);
+	if (textures->so_file)
+		free(textures->so_file);
+	if (textures->we_file)
+		free(textures->we_file);
+	if (textures->ea_file)
+		free(textures->ea_file);
 	free(textures);
 }
 

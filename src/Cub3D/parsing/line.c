@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:06:57 by nrontey           #+#    #+#             */
-/*   Updated: 2024/10/10 06:21:41 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:28:50 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int	get_line_color(char *str, char mode, t_textures *textures)
 		return (free_tab(colors));
 	if (mode == 'F')
 	{
-		textures->F_R = ft_atoi(colors[0]);
-		textures->F_G = ft_atoi(colors[1]);
-		textures->F_B = ft_atoi(colors[2]);
-		textures->F_ok = 1;
+		textures->f_r = ft_atoi(colors[0]);
+		textures->f_g = ft_atoi(colors[1]);
+		textures->f_b = ft_atoi(colors[2]);
+		textures->f_ok = 1;
 		return (free_tab(colors), 1);
 	}
 	else if (mode == 'C')
 	{
-		textures->C_R = ft_atoi(colors[0]);
-		textures->C_G = ft_atoi(colors[1]);
-		textures->C_B = ft_atoi(colors[2]);
-		textures->C_ok = 1;
+		textures->c_r = ft_atoi(colors[0]);
+		textures->c_g = ft_atoi(colors[1]);
+		textures->c_b = ft_atoi(colors[2]);
+		textures->c_ok = 1;
 		return (free_tab(colors), 1);
 	}
 	return (free_tab(colors), 0);

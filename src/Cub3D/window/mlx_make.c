@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_make.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:00:31 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:04:23 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:27:03 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	open_textures(t_data *data)
 {
 	int	i;
 
-	texture_load(data, &data->map->textures[0], data->textures->NO_file);
-	texture_load(data, &data->map->textures[1], data->textures->SO_file);
-	texture_load(data, &data->map->textures[2], data->textures->WE_file);
-	texture_load(data, &data->map->textures[3], data->textures->EA_file);
+	texture_load(data, &data->map->textures[0], data->textures->no_file);
+	texture_load(data, &data->map->textures[1], data->textures->so_file);
+	texture_load(data, &data->map->textures[2], data->textures->we_file);
+	texture_load(data, &data->map->textures[3], data->textures->ea_file);
 	i = 0;
 	while (i < 4)
 	{

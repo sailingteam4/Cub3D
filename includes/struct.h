@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 14:14:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/17 01:23:40 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:27:03 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 
 typedef struct s_textures
 {
-	char			*NO_file;
-	char			*SO_file;
-	char			*WE_file;
-	char			*EA_file;
+	char			*no_file;
+	char			*so_file;
+	char			*we_file;
+	char			*ea_file;
 
-	int				F_R;
-	int				F_G;
-	int				F_B;
-	int				F_ok;
-	int				C_R;
-	int				C_G;
-	int				C_B;
-	int				C_ok;
+	int				f_r;
+	int				f_g;
+	int				f_b;
+	int				f_ok;
+	int				c_r;
+	int				c_g;
+	int				c_b;
+	int				c_ok;
 }	t_textures;
 
 typedef struct s_vector
@@ -54,15 +54,17 @@ typedef struct s_player
 	int			rotating_right;
 }	t_player;
 
-typedef struct s_texture {
-    void    *img;
-    char    *addr;
-    int     width;
-    int     height;
-    int     line_length;
-} t_texture;
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		line_length;
+}	t_texture;
 
-typedef struct s_ray_casting {
+typedef struct s_ray_casting
+{
 	float	fov;
 	float	angle_step;
 	float	ray_angle;
@@ -85,16 +87,17 @@ typedef struct s_ray_casting {
 	int		texture_index;
 }	t_ray_casting;
 
-typedef struct s_draw_params {
+typedef struct s_draw_params
+{
 	int		x;
 	float	wall_height;
 	float	wall_start;
 	float	wall_end;
 	int		texture_index;
 	int		tex_x_int;
-	float   step;
-    float   tex_pos;
-    int     img_height;
+	float	step;
+	float	tex_pos;
+	int		img_height;
 }	t_draw_params;
 
 typedef struct s_map

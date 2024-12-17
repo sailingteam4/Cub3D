@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
+/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:02:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 20:37:05 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:27:03 by tpipi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int	get_line_texture(char *line, t_textures *textures)
 		return (free_tab(line_tab));
 	element = line_tab[0];
 	if ((!ft_strcmp(element, "NO") || (ft_strlen(element) == 1 && \
-			element[0] == 'N' )) && !textures->NO_file)
-		textures->NO_file = ft_strdup(line_tab[1]);
+			element[0] == 'N' )) && !textures->no_file)
+		textures->no_file = ft_strdup(line_tab[1]);
 	if ((!ft_strcmp(element, "SO") || (ft_strlen(element) == 1 && \
-				element[0] == 'S')) && !textures->SO_file)
-		textures->SO_file = ft_strdup(line_tab[1]);
+				element[0] == 'S')) && !textures->so_file)
+		textures->so_file = ft_strdup(line_tab[1]);
 	if ((!ft_strcmp(element, "WE") || (ft_strlen(element) == 1 && \
-				element[0] == 'W')) && !textures->WE_file)
-		textures->WE_file = ft_strdup(line_tab[1]);
+				element[0] == 'W')) && !textures->we_file)
+		textures->we_file = ft_strdup(line_tab[1]);
 	if ((!ft_strcmp(element, "EA") || (ft_strlen(element) == 1 && \
-			element[0] == 'E')) && !textures->EA_file)
-		textures->EA_file = ft_strdup(line_tab[1]);
+			element[0] == 'E')) && !textures->ea_file)
+		textures->ea_file = ft_strdup(line_tab[1]);
 	free_tab(line_tab);
 	return (1);
 }
