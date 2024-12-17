@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:25:56 by nrontey           #+#    #+#             */
-/*   Updated: 2024/09/04 01:56:44 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:34:28 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int		ft_hex_len(unsigned	int num);
 
 /* get next line */
 char	*get_next_line(int fd);
-#define BUFFER_SIZE 32
+# define BUFFER_SIZE 32
 
 #endif
