@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   keybinds_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:57:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 22:58:46 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/17 01:24:24 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
-t_raycast ft_raycaster(t_map *map, t_player *player, float angle);
 
 void	exit_mlx(t_data *data)
 {
@@ -45,7 +43,6 @@ void	move_player(t_data *data)
 		player->moving_left || player->moving_right || \
 		player->rotating_left || player->rotating_right)
 		update_minimap(data, HEIGHT / 80);
-	ft_raycaster(data->map, data->map->player, data->map->player->rotation);
 }
 
 int	key_press(int keycode, t_data *data)

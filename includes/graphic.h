@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:01:43 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/16 23:36:40 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/17 01:22:59 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define HEIGHT 720
-#define WIDTH 1040
+#define HEIGHT 1080
+#define WIDTH 1920
 
 // keybinds.c
 void			exit_mlx(t_data *data);

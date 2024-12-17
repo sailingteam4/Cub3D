@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 14:14:28 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/17 00:34:22 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/17 01:23:40 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,6 @@ typedef struct s_ray_casting {
 	float	tex_x;
 	int		texture_index;
 }	t_ray_casting;
-
-typedef struct s_raycast {
-	float	nearest_y;
-	float	nearest_x;
-	float	offset_y;
-	float	offset_x;
-	float	dist;
-	int		wall_x;
-	int		wall_y;
-	int		hit;
-}	t_raycast;
 
 typedef struct s_draw_params {
 	int		x;
