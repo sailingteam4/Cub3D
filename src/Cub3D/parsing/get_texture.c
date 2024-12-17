@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 06:02:17 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/17 11:27:03 by tpipi            ###   ########.fr       */
+/*   Updated: 2024/12/17 12:48:08 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	get_line_texture(char *line, t_textures *textures)
 		return (0);
 	if (!line_tab || !line_tab[0] || !line_tab[1] || ft_strlen(line_tab[0]) > 2)
 		return (free_tab(line_tab));
+	if (ft_strlen(textures->no_file) && ft_strlen(textures->so_file) && \
+		ft_strlen(textures->we_file) && ft_strlen(textures->ea_file))
+		return (free_tab(line_tab));
 	element = line_tab[0];
 	if ((!ft_strcmp(element, "NO") || (ft_strlen(element) == 1 && \
 			element[0] == 'N' )) && !textures->no_file)
@@ -35,8 +38,7 @@ int	get_line_texture(char *line, t_textures *textures)
 	if ((!ft_strcmp(element, "EA") || (ft_strlen(element) == 1 && \
 			element[0] == 'E')) && !textures->ea_file)
 		textures->ea_file = ft_strdup(line_tab[1]);
-	free_tab(line_tab);
-	return (1);
+	return (free_tab(line_tab), 1);
 }
 
 int	handle_texture_data(char *line, t_textures *textures)
