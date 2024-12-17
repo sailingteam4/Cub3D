@@ -6,7 +6,7 @@
 #    By: tpipi <tpipi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 11:31:32 by tpipi             #+#    #+#              #
-#    Updated: 2024/12/17 11:31:32 by tpipi            ###   ########.fr        #
+#    Updated: 2024/12/17 11:36:21 by tpipi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3D
 NAME_BONUS = cub3D_bonus
 
 CLANG = gcc
-CFLAGS = -Wall -Wextra -Werror -g -O3 -fopenmp -march=native -flto -ffast-math -funroll-loops
+CFLAGS = -Wall -Wextra -Werror -O3 -fopenmp -march=native -flto -ffast-math -funroll-loops
 LIBFT = src/libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
