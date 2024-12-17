@@ -6,7 +6,7 @@
 /*   By: nrontey <nrontey@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:42:12 by nrontey           #+#    #+#             */
-/*   Updated: 2024/12/12 22:21:47 by nrontey          ###   ########.fr       */
+/*   Updated: 2024/12/17 12:16:15 by nrontey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int	ft_check_map(t_data *data)
 		printf("Error\nNo map found\n");
 		return (0);
 	}
-	printf("Map is valid\n");
 	return (1);
 }
 
